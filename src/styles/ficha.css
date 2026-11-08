@@ -1,0 +1,11 @@
+/* Cambio 5: ficha coherente. */
+.d1-sheet { padding: 16px; max-width: 760px; }
+.d1-sheet h2 { font-size: 20px; margin: 0 0 8px; }
+.d1-sheet dl { margin: 0; }
+.d1-sheet__row { display: grid; grid-template-columns: 140px 1fr; gap: 12px; padding: 10px 0; border-top: 1px solid #e3e3e3; }
+@media (max-width: 480px) { .d1-sheet__row { grid-template-columns: 1fr; gap: 2px; } }
+.d1-sheet dt { font-weight: 700; color: #1f4e79; }
+.d1-sheet dd { margin: 0; }
+.d1-sheet dd ul { margin: 0; padding-left: 18px; }
+.d1-sheet__vacio { color: #888; font-style: italic; }
+.d1-sheet__nota { margin: 12px 0 0; padding: 10px 12px; background: #f3f8fc; border-radius: 8px; font-size: 14px; }

@@ -5,6 +5,8 @@ import ProductGallery from '../components/product/ProductGallery'
 import ProductInfo from '../components/product/ProductInfo'
 import ProductDescription from '../components/product/ProductDescription'
 import ProductReviews from '../components/product/ProductReviews'
+import ProductSheet from '../components/product/ProductSheet'
+import { kitDetails } from '../data/kitDetails'
 import { productDetails } from '../data/productDetails'
 import { shelves } from '../data/shelves'
 import { categories } from '../data/categories'
@@ -65,7 +67,9 @@ export default function ProductPage() {
           </div>
           <ProductInfo product={product} />
         </div>
-        {product.descriptionHtml && <ProductDescription html={product.descriptionHtml} />}
+        <ProductSheet product={product} />
+        {/* Las condiciones de compra de los kits de donación siguen disponibles tal como estaban. */}
+        {kitDetails[product.href] && <ProductDescription html={product.descriptionHtml} />}
         <ProductReviews href={product.href} />
       </div>
     </div>
