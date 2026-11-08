@@ -5,6 +5,7 @@ import Icon from '../ui/Icon'
 import Price from '../ui/Price'
 import AppLink from '../ui/AppLink'
 import PaymentSeals from '../ui/PaymentSeals'
+import ReturnPolicySummary from '../ui/ReturnPolicySummary'
 import { asset } from '../../utils/asset'
 import { useCart } from '../../context/useCart'
 
@@ -177,6 +178,7 @@ export default function MiniCart() {
                       <span className="vtex-button__label flex items-center justify-center h-100 ph6">Ir a pagar</span>
                     </Link>
                     <PaymentSeals compact />
+                    <ReturnPolicySummary onNavigate={closeCart} />
                   </div>
                 </>
               )}

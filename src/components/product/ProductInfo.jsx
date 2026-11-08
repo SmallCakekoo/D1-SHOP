@@ -1,4 +1,5 @@
 import Price from '../ui/Price'
+import ReturnPolicySummary from '../ui/ReturnPolicySummary'
 import { useCart } from '../../context/useCart'
 
 const P = 'd1tiendas-commons-components-1-x-'
@@ -75,6 +76,7 @@ export default function ProductInfo({ product, onAdded }) {
             openCart()
           }}
         />
+        <ReturnPolicySummary />
       </div>
     </div>
   )

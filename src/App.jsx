@@ -11,6 +11,8 @@ import RemercaPage from './pages/RemercaPage'
 import SlugPage from './pages/SlugPage'
 import LoginPage from './pages/LoginPage'
 import CheckoutPage from './pages/CheckoutPage'
+import ReturnsPage from './pages/ReturnsPage'
+import HelpButton from './components/layout/HelpButton'
 
 // El mapa (Leaflet) y los datos de tiendas solo se cargan al entrar a /tiendas.
 const StoresPage = lazy(() => import('./pages/StoresPage'))
@@ -21,6 +23,7 @@ export default function App() {
       <CartProvider>
         <div className="flex flex-column min-vh-100 w-100">
           <BackToTop />
+          <HelpButton />
           <MiniCart />
           <Header />
           <main className="flex flex-grow-1 w-100 flex-column">
@@ -29,6 +32,7 @@ export default function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/tiendas" element={<StoresPage />} />
                 <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/devoluciones" element={<ReturnsPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<LoginPage />} />
                 <Route path="/remerca/p" element={<RemercaPage />} />

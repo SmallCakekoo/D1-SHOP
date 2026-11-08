@@ -47,6 +47,7 @@ const PAGINAS = [
   { nombre: '08-carrito-con-producto', ruta: PRODUCTO, agregarYAbrirCarrito: true },
   // Pantallas nuevas: solo existen después del cambio que las crea.
   { nombre: '11-checkout', ruta: PRODUCTO, agregarYAbrirCarrito: true, irAPagar: true, soloDespues: true },
+  { nombre: '12-devoluciones', ruta: '/devoluciones', soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]
