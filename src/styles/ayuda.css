@@ -6,10 +6,12 @@
 .d1-returns__link { color: #1f4e79; font-weight: 600; }
 
 .d1-help { position: fixed; left: 16px; bottom: 16px; z-index: 990; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.d1-help__btn { min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #1f4e79; color: #fff; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
+.d1-help__btn { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #1f4e79; color: #fff; font-weight: 600; cursor: pointer; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25); }
 .d1-help__panel { display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; width: 260px; max-width: calc(100vw - 32px); background: #fff; border-radius: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25); font-size: 14px; }
 .d1-help__panel a { display: flex; align-items: center; gap: 8px; color: #1f4e79; }
 
 .d1-policy { max-width: 760px; width: 100%; margin: 0 auto; padding: 24px 16px 48px; box-sizing: border-box; }
 .d1-policy h2 { font-size: 18px; margin: 20px 0 4px; }
 .d1-policy p { margin: 0; color: #333; }
+.d1-help__head { display: flex; align-items: center; gap: 8px; }
+.d1-help__btn svg, .d1-help__head svg { flex: 0 0 20px; }

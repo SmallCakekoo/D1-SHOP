@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Icon from '../ui/Icon'
+import { HelpCircleIcon } from '../ui/InlineIcons'
 import { contact } from '../../data/footer'
 import '../../styles/ayuda.css'
 
@@ -19,7 +20,9 @@ export default function HelpButton() {
     <div className="d1-help">
       {open && (
         <div className="d1-help__panel" role="dialog" aria-label="Ayuda y atención al cliente">
-          <strong>¿Necesitas ayuda?</strong>
+          <strong className="d1-help__head">
+            <HelpCircleIcon width={20} height={20} /> ¿Necesitas ayuda?
+          </strong>
           <a href={contact.phone.href}>
             <Icon id="mpa-phone" size={18} /> {contact.phone.label}
           </a>
@@ -32,6 +35,7 @@ export default function HelpButton() {
         </div>
       )}
       <button type="button" className="d1-help__btn" aria-expanded={open} onClick={() => setOpen((v) => !v)}>
+        <HelpCircleIcon width={20} height={20} />
         {open ? 'Cerrar' : 'Ayuda'}
       </button>
     </div>
