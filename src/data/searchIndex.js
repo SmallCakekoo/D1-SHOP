@@ -1,0 +1,148 @@
+// Resultados de las búsquedas populares de d1.com.co (datos estructurados de cada página de resultados).
+// Cada producto: [nombre, marca, path (sin "/p"), id de imagen, versión de imagen, precio].
+// "total" es la cantidad real de resultados en el sitio; aquí solo se guardan los primeros.
+export const searchIndex = {
+  miel: {
+    total: 6,
+    items: [
+      ['Miel de Abejas Meel 350 Grs', 'MEEL', '/miel-de-abejas-meel-350g-12000826', 200000, '639179651200530000', 8900],
+      ['Galleta Tosh Miel 209 Grs', 'TOSH', '/galleta-tosh-miel-209-g-12007749', 205000, '639197448736700000', 4850],
+      ['Galleta Integral con Miel Natri 216 G', 'NATRI', '/galleta-integral-con-miel-natri-216g-12002511', 200685, '639179666361130000', 4200],
+      ['Salsa Miel Mostaza Zev 200 Gr', 'ZEV', '/salsa-miel-mostaza-zev-200g-12003735', 201463, '639179689944200000', 3650],
+      ['Pan Integr Miel Pasas Horneaditos 340 Gr', 'HORNEADITOS', '/pan-integral-miel-pasas-horneaditos-340g-12000307', 199398, '639179639200000000', 4490],
+      ['Cereal Infantil Trigo Miel Nestum 200 Gr', 'NESTUM', '/cereal-infantil-nestum-trigo-miel-200g-12002704', 204727, '639191263621470000', 12350],
+    ],
+  },
+  queso: {
+    total: 59,
+    items: [
+      ['Queso Mozzarella Tajado Latti 400 Grs', 'LATTI', '/queso-mozzarella-tajado-latti-12000084', 198944, '639179629969770000', 10500],
+      ['Queso Crema Latti 200 Grs', 'LATTI', '/queso-crema-latti-200g-12000341', 199486, '639179640712870000', 3490],
+      ['Queso Parmesano Latti 100 Grs', 'LATTI', '/queso-parmesano-latti-100g-12000139', 199020, '639179631616500000', 6950],
+      ['Queso Parmesano Alpina 120 Grs', 'ALPINA', '/queso-parmesano-alpina-120g-12004307', 201910, '639179698267500000', 15350],
+      ['Queso Tajado Vita Latti 249 Gr', 'VITA LATTI', '/queso-tajado-vita-latti-249g-12003514', 201277, '639179679354570000', 9300],
+      ['Queso Mozzarella Tajado X 250 G Latti', 'LATTI', '/queso-mozzarella-tajado-latti-12006207', 202694, '639179735310130000', 8990],
+      ['Queso Costeño Bloque Latti 400 Gr', 'LATTI', '/queso-costeno-bloque-latti-400gr-12005516', 203282, '639179855325300000', 11950],
+      ['Queso Latti Mozzarella Bufala 100 Gr', 'LATTI', '/queso-latti-mozzarella-bufala-100gr-12003412', 201194, '639179677631000000', 5990],
+      ['Queso Latti Mozzarella X 300 Gr Rallado', 'LATTI', '/queso-latti-mozzarella-x-300gr-rallado-12005591', 203129, '639179839331100000', 10950],
+      ['Queso Mozzarella Bloque Latti 400 Grs', 'LATTI', '/queso-mozzarella-bloque-latti-400g-12000164', 199048, '639179632275200000', 10500],
+    ],
+  },
+  leche: {
+    total: 32,
+    items: [
+      ['Leche Deslactosada Tetrapak UHT Latti 900 Ml', 'LATTI', '/leche-deslac-tetrapak-uht-latti-900ml-12000245', 199194, '639179635419670000', 3750],
+      ['Leche Entera Bolsa UHT Latti 900 Ml', 'LATTI', '/leche-entera-bolsa-uht-latti-900ml-12000094', 198962, '639179630422500000', 3090],
+      ['Leche Entera Tetrapak UHT Latti 900 Ml', 'LATTI', '/leche-entera-tetrapak-uht-latti-900ml-12000543', 199818, '639179647707170000', 3550],
+      ['Leche Deslactosada Bolsa UHT Latti 900 Ml', 'LATTI', '/leche-deslactosada-bolsa-uht-latti-900ml-12005757', 202354, '639179726428470000', 3200],
+      ['Leche Condensada Doypack Latti 300 Grs', 'LATTI', '/leche-condensada-doypack-latti-300g-12000929', 200042, '639179652318330000', 4200],
+      ['Leche en Polvo Entera Latti 1000 Grs', 'LATTI', '/leche-en-polvo-entera-latti-12000270', 199284, '639179637179070000', 20900],
+      ['Leche Deslactosada Descremada Tetrapak 900 Ml', 'LATTI', '/leche-deslacto-descrema-tetrapak-900ml-12001742', 200336, '639179658428100000', 3950],
+      ['Leche en Polvo Entera Latti 350 Grs', 'LATTI', '/leche-en-polvo-entera-latti-12003513', 201273, '639179679286300000', 8300],
+      ['Leche Equilibrio Tetrapak Uhtlatti 900 Ml', 'LATTI', '/leche-equilibrio-tetrapak-uhtlatti-900ml-12005778', 202394, '639179726879300000', 3350],
+      ['Leche Súper Cremosa Latti X900 Ml', 'LATTI', '/leche-super-cremosa-latti-x900ml-12006667', 203076, '639179831760230000', 4700],
+    ],
+  },
+  galletas: {
+    total: 46,
+    items: [
+      ['Galleta 2 Tacos Ducales Noel 241 Grs', 'NOEL', '/galleta-ducales-noel-2-tacos-241g-12000096', 198966, '639179630518830000', 5950],
+      ['Galleta Saltin Noel 5 Tacos 410 G', 'NOEL', '/galleta-saltin-noel-5-tacos-410g-12003986', 201692, '639179694558230000', 6600],
+      ['Galleta Oreo 6 Pq 216 G', 'OREO', '/galleta-oreo-6-pack-216g-12004310', 201914, '639179698399700000', 6800],
+      ['Galleta Muuu Leche Colombina 216 Grs', 'MUUU', '/galleta-muuu-leche-colombina-216g-12000019', 198817, '639179621656570000', 5490],
+      ['Galletas Mini Chips 8 Pq 280 G', 'FESTIVAL', '/galletas-mini-chips-festival-8-pack-280g-12003939', 201661, '639179694071970000', 10450],
+      ['Galletas Happy Wafer X 12 Und 288 G', 'HAPPY WAFER', '/galletas-happy-wafer-12-und-288g-12005070', 202126, '639179702935130000', 4990],
+      ['Galletas Saltisimas Mega 6 Tacos 454 Grs', 'SALTISIMAS', '/galletas-saltisimas-mega-6-tacos-454g-12002839', 200913, '639179671063530000', 5600],
+      ['Galleta Tosh Cremada 144 Grs', 'TOSH', '/galleta-tosh-cremada-144g-12006681', 203318, '639179858342430000', 7990],
+      ['Galletas Vainilla 18 Un Wafer Noel 432 Gr', 'NOEL', '/galletas-vainilla-wafer-noel-18-und-432g-12000134', 199016, '639179631512700000', 9800],
+      ['Galleta Semidulce 5 Tacos 455 Grs', 'SALTISIMAS', '/galleta-semidulce-5-tacos-455g-12003003', 204112, '639189469219230000', 6990],
+    ],
+  },
+  jabon: {
+    total: 40,
+    items: [
+      ['Jabon Tocador Protex 220 Gr', 'PROTEX', '/jabon-tocador-protex-220-g-12008823', 204826, '639192401018100000', 6150],
+      ['Jabon en Barra 3D 3 Unds', '3D', '/jabon-barra-3d-3-und-12005584', 203125, '639179838941300000', 5850],
+      ['Jabón de Barra Líquido Brilla King 1 L', 'BRILLA KING', '/jabon-barra-liquido-brilla-king-1l-12002044', 200434, '639179660777700000', 5400],
+      ['Jabón Líquido Nf Avena y Coco 1000 Ml', 'NATURAL FEELING', '/jabon-liquido-nf-avena-coco-12006237', 202756, '639179736250900000', 5650],
+      ['Jabón Líquido Nf Oasis Spa 1000 Ml', 'NATURAL FEELING', '/jabon-liquido-nf-oasis-spa-12006245', 203202, '639179847614500000', 5650],
+      ['Jabón en Barra Duo Pack Rey 500 Gr', 'REY', '/jabon-en-barra-duo-pack-rey-500gr-12009138', 205907, '639231868886470000', 5490],
+      ['Jabón Líquido Nf Avena y Coco 500 Ml', 'NATURAL FEELING', '/jabon-liquido-nf-avena-coco-12006236', 202752, '639179736155870000', 3650],
+      ['Jabón Líquido Nf Oasis Spa 500 Ml', 'NATURAL FEELING', '/jabon-liquido-nf-oasis-spa-12006238', 202760, '639179736374730000', 3550],
+      ['Jabón en Barra Brilla King 3 Und', 'BRILLA KING', '/jabon-barra-brilla-king-3-und-12000425', 199651, '639179644087130000', 6150],
+      ['Dispensador de Jabón Líquido Lavaplatos', 'RED FLAG', '/dispensador-de-jabon-liquido-lavaplatos-', 207005, '639257682197770000', 10900],
+    ],
+  },
+  espejo: {
+    total: 4,
+    items: [
+      ['Espejo Plegable Red Flag X1 U', 'RED FLAG', '/espejo-plegable-redflag-x1u-12008448', 205416, '639213575769830000', 4900],
+      ['Espejo LED Organizador de Maquillaje Red Flag X1 Unidad', 'RED FLAG', '/espejo-y-organizador-redflag-x-1ud-12007995', 205512, '639214507234770000', 44900],
+      ['Espejo Tocador Con Bandeja Bathroom Solutions X1', 'BATHROOM SOLUTIONS', '/espejo-tocador-con-bandeja-bathroom-solutions-12007943', 205709, '639221514189930000', 9990],
+      ['Placa Decorativa con Espejo Red Flag', 'RED FLAG', '/placa-decorativa-con-espejo-redflag-12007928', 205696, '639221457353900000', 27950],
+    ],
+  },
+  aseo: {
+    total: 149,
+    items: [
+      ['Blanqueador Brilla King 2000 Ml', 'BRILLA KING', '/blanqueador-brilla-king-2000ml-12000089', 198954, '639179630189930000', 3100],
+      ['Bolsa Hogar Tidy House 10 Und', 'TIDY HOUSE', '/bolsa-hogar-tidy-house-10-und-12000273', 207433, '639286479669630000', 2050],
+      ['Detergente Líquido Bonaropa 3 Litros', 'BONAROPA', '/detergente-liquido-bonaropa-12002741', 200826, '639179669519730000', 13900],
+      ['Bolsa Papelera Tidy House 30 Und', 'TIDY HOUSE', '/bolsa-papelera-tidy-house-30-und-12000276', 207442, '639286483867470000', 2300],
+      ['Líquido Lavaloza Brilla King 500 Ml', 'BRILLA KING', '/lavaloza-liquido-brilla-king-500ml-12000231', 199178, '639179635203300000', 2600],
+      ['Suavizante Floral Bonaropa 3 L', 'BONAROPA', '/suavizante-bonaropa-floral-12003533', 201289, '639179679556870000', 9990],
+      ['Desengrasante Brilla King 500 Ml', 'BRILLA KING', '/desengrasante-brilla-king-500ml-12000240', 199182, '639179635284970000', 2450],
+      ['Blanqueador en Gel Brilla King 1 Lt', 'BRILLA KING', '/blanqueador-gel-brilla-king-1l-12002695', 200775, '639179668706200000', 5850],
+      ['Toalla Cocina Triple Hoja Rendy 80 Hojas', 'RENDY', '/toalla-cocina-triple-hoja-rendy-80h-12006851', 203473, '639179860519370000', 3650],
+      ['Toalla de Cocina Rendy Doble Hoja', 'RENDY', '/toalla-cocina-rendy-doble-hoja-12000177', 199075, '639179632894670000', 1750],
+    ],
+  },
+  huevos: {
+    total: 153,
+    items: [
+      ['Huevo Tipo Aa 30 Und', 'SOL NACIENTE', '/huevo-tipo-aa-30-und-12003315', 204535, '639190869027830000', 14650],
+      ['Huevo Tipo A Sol Naciente 30 Und', 'SOL NACIENTE', '/huevo-tipo-a-sol-naciente-30-und-12000344', 199498, '639179641011170000', 13490],
+      ['Huevo Tipo Aa Sol Naciente 12 Und', 'SOL NACIENTE', '/huevo-tipo-aa-sol-naciente-12-und-12000291', 199348, '639179638161400000', 7490],
+      ['Huevo AAX30 Libres de Jaula Sol Naciente', 'SOL NACIENTE', '/huevo-aa-x-30-libres-de-jaula-sol-naciente-12008604', 204536, '639190871415900000', 19990],
+      ['Huevo de Codorniz Sol Naciente 24 Und', 'SOL NACIENTE', '/huevo-de-codorniz-sol-naciente-24-und-12000303', 199386, '639179638986400000', 5300],
+      ['Huevo Sorpresa Ozmo 20 Grs', 'OZMO', '/huevo-sorpresa-ozmo-20grs-12003490', 201257, '639179678854130000', 4990],
+      ['Queso Mozzarella Tajado Latti 400 Grs', 'LATTI', '/queso-mozzarella-tajado-latti-12000084', 198944, '639179629969770000', 10500],
+      ['Crema de Leche Larga Vida 200 Gr', 'LATTI', '/crema-de-leche-larga-vida-200-gr-12001250', 200208, '639179655748870000', 2400],
+      ['Leche Deslactosada Tetrapak UHT Latti 900 Ml', 'LATTI', '/leche-deslac-tetrapak-uht-latti-900ml-12000245', 199194, '639179635419670000', 3750],
+      ['Yogurt Griego Natural Vita Latti 330 Gr', 'VITA LATTI', '/yogurt-griego-natural-vita-latti-330g-12003254', 201078, '639179674502970000', 7600],
+    ],
+  },
+  aceite: {
+    total: 29,
+    items: [
+      ['Aceite Oliva Extravir Castell D F 500 Ml', 'CASTELL DE FERRO', '/aceite-oliva-extravirgen-castell-de-ferro-12000330', 206020, '639233499630870000', 16950],
+      ['Aceite Vegetal Imatá 3.000 Ml', 'IMATA', '/aceite-vegetal-imata-12004359', 201950, '639179699021700000', 19950],
+      ['Aceite Vegetal Imatá 900 Ml', 'IMATA', '/aceite-vegetal-imata-12004358', 201946, '639179698978470000', 6950],
+      ['Aceite de Girasol Don Olio 2000 Ml', 'DON OLIO', '/aceite-girasol-don-olio-12000775', 199957, '639179650423900000', 16990],
+      ['Aceite de Girasol Don Olio 900 Ml', 'DON OLIO', '/aceite-girasol-don-olio-12004357', 201943, '639179698940430000', 7990],
+      ['Aceite Oliva Extravir Castell D F 1000 Ml', 'CASTELL DE FERRO', '/aceite-oliva-extravirgen-castell-de-ferro-12003659', 206028, '639233510107000000', 32450],
+      ['Aceite de Coco Virgen Natri 210', 'NATRI', '/aceite-de-coco-virgen-natri-210-12001926', 200380, '639179659586230000', 8900],
+      ['Aceite de Canola Don Olio 900 Ml', 'DON OLIO', '/aceite-canola-don-olio-12004356', 201940, '639179698900930000', 9990],
+      ['Aceite de Aguacate Natri 230 Ml', 'NATRI', '/aceite-de-aguacate-natri-230ml-12006707', 203349, '639179858870870000', 14950],
+      ['Aceite de Soya Don Olio 3000 Ml', 'DON OLIO', '/aceite-de-soya-don-olio-3000-ml-12000641', 199874, '639179648609500000', 22990],
+    ],
+  },
+  arroz: {
+    total: 10,
+    items: [
+      ['Arroz Premium Albar 2500 G', 'ALBAR', '/arroz-premium-albar-2500g-12002416', 200594, '639179664265570000', 9750],
+      ['Arroz Diana 500 G', 'DIANA', '/arroz-diana-500g-12002073', 207234, '639270713083670000', 1990],
+      ['Arroz Premium Albar 1000 Grs', 'ALBAR', '/arroz-premium-albar-1000-grs-12000083', 198939, '639179629844470000', 3790],
+      ['Arroz Estándar Albar 2500 G', 'ALBAR', '/arroz-estandar-albar-2500g-12005770', 202374, '639179726642400000', 8150],
+      ['Arroz Achocolatado Fiocco 320 Grs', 'FIOCCO', '/arroz-achocolatado-fiocco-320g-12000393', 199594, '639179643017100000', 6490],
+      ['Arroz Estándar Albar 500 Grs', 'ALBAR', '/arroz-estandar-albar-500grs-12000051', 198876, '639179628615900000', 1750],
+      ['Arroz Económico Albar 2000 Grs', 'ALBAR', '/arroz-economico-albar-2000grs-12002541', 200712, '639179667076470000', 5550],
+      ['Arroz Económico Albar 450 Grs', 'ALBAR', '/arroz-economico-albar-450-grs-12007351', 204382, '639190434980100000', 1300],
+      ['Arroz Integral Diana 1.000 G', 'DIANA', '/arroz-integral-diana-1000g-12003653', 201417, '639179689104300000', 4500],
+      ['Arroz Sabor A Coco Diana 1.000 G', 'DIANA', '/arroz-sabor-coco-diana-1000g-12004677', 202044, '639179701554600000', 6490],
+    ],
+  },
+}
+
+export const notFoundBanner =
+  'https://d1tiendas.vtexassets.com/assets/vtex.file-manager-graphql/images/632c584b-940b-46dd-966f-35adb96dcf4e___7ff1206440068e7ebc24ccad82a6907d.jpg'

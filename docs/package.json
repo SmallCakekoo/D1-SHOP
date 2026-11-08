@@ -1,0 +1,8 @@
+{
+  "name": "d1-docs-capturas",
+  "private": true,
+  "type": "module",
+  "description": "Herramientas de documentación (capturas). Aparte de la app para no tocar su package.json.",
+  "scripts": { "capturar": "node capturar.js" },
+  "devDependencies": { "playwright": "^1.55.0" }
+}
