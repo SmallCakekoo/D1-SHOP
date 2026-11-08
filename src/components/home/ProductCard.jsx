@@ -5,6 +5,8 @@ import QuickViewModal from '../product/QuickViewModal'
 import Price from '../ui/Price'
 import { asset } from '../../utils/asset'
 import { productPath } from '../../utils/links'
+import { estaAgotado } from '../../utils/stock'
+import '../../styles/agotado.css'
 import { useCart } from '../../context/useCart'
 
 const S = 'vtex-product-summary-2-x-'
@@ -30,6 +32,7 @@ export default function ProductCard({ product }) {
   const [inList, setInList] = useState(false)
   const [favorite, setFavorite] = useState(false)
   const [quickView, setQuickView] = useState(false)
+  const agotado = estaAgotado(product.href)
 
   const closeQuickView = useCallback(() => setQuickView(false), [])
 
@@ -64,11 +67,12 @@ export default function ProductCard({ product }) {
                 <div className={`${S}imageContainer ${S}imageWrapper db w-100 center`}>
                   <div className="vtex-store-components-3-x-discountContainer relative dib">
                     <div className={`dib relative ${S}imageContainer ${S}imageStackContainer ${S}hoverEffect`}>
+                      {agotado && <span className="d1-badge-agotado">Agotado</span>}
                       <img
                         src={asset(product.image)}
                         alt={product.name}
                         loading="lazy"
-                        className={`${S}imageNormal ${S}image`}
+                        className={`${S}imageNormal ${S}image ${agotado ? 'd1-img-agotado' : ''}`}
                         style={{ width: '100%', height: 197, objectFit: 'contain', maxHeight: 'unset', maxWidth: 197 }}
                       />
                     </div>
@@ -165,10 +169,13 @@ export default function ProductCard({ product }) {
               >
                 <button
                   type="button"
-                  className="bg-action-primary b--action-primary c-on-action-primary pointer w-100 vtex-button bw1 ba fw5 v-mid relative pa0 lh-solid br2 min-h-regular t-action"
-                  onClick={stop(() => addItem(product))}
+                  disabled={agotado}
+                  className={`${agotado ? 'd1-btn-agotado' : 'bg-action-primary b--action-primary c-on-action-primary pointer'} w-100 vtex-button bw1 ba fw5 v-mid relative pa0 lh-solid br2 min-h-regular t-action`}
+                  onClick={stop(() => !agotado && addItem(product))}
                 >
-                  <div className="vtex-button__label flex items-center justify-center h-100 ph6 w-100 border-box">Agregar</div>
+                  <div className="vtex-button__label flex items-center justify-center h-100 ph6 w-100 border-box">
+                    {agotado ? 'Agotado' : 'Agregar'}
+                  </div>
                 </button>
               </div>
             </div>

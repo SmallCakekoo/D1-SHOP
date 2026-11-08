@@ -48,6 +48,7 @@ const PAGINAS = [
   // Pantallas nuevas: solo existen después del cambio que las crea.
   { nombre: '11-checkout', ruta: PRODUCTO, agregarYAbrirCarrito: true, irAPagar: true, soloDespues: true },
   { nombre: '12-devoluciones', ruta: '/devoluciones', soloDespues: true },
+  { nombre: '13-producto-agotado', ruta: '/bocadillo-veleno-dulce-naturaleza-470g-12000515/p', soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]

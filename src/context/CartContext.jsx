@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { CartContext } from './cartStore'
 import { priceValue } from '../utils/links'
+import { estaAgotado } from '../utils/stock'
 
 // El mismo producto puede llegar como URL absoluta (tarjetas) o como ruta (página de producto).
 const keyOf = (href) => href.replace(/^https?:\/\/www\.d1\.com\.co/, '')
@@ -18,6 +19,7 @@ export function CartProvider({ children }) {
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
       addItem(product) {
+        if (estaAgotado(product.href)) return // un producto agotado no se puede comprar (cambio 3)
         setItems((current) => {
           const key = keyOf(product.href)
           const found = current.find((item) => keyOf(item.href) === key)

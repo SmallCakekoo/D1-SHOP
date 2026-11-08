@@ -1,0 +1,5 @@
+/* Cambio 3: productos agotados visibles pero no comprables. */
+.d1-badge-agotado { position: absolute; top: 8px; left: 8px; z-index: 5; padding: 4px 10px; border-radius: 999px; background: #444; color: #fff; font-size: 12px; font-weight: 700; }
+.d1-img-agotado { opacity: 0.45; filter: grayscale(1); }
+.d1-btn-agotado { background: #e3e3e3; border-color: #e3e3e3; color: #555; cursor: not-allowed; }
+.d1-aviso-agotado { margin: 8px 0; padding: 8px 12px; border-radius: 8px; background: #f0f0f0; color: #333; font-size: 14px; }
