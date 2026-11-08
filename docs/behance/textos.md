@@ -1,6 +1,6 @@
 # Behance copy (English, short)
 
-Sample data (reviews, return terms, sold-out items) is placeholder content for a university prototype.
+Reviews, return terms and sold-out items are placeholder content for a university prototype (marked in the code, not on screen).
 
 ## Project intro
 We measured how much 25 D1 customers trust the online store (Schultz, 2006 model): 56.3/100 overall. Institutional trust sat at 61, interpersonal at 62, dispositional at 46. We redesigned a local copy to lift the first two and re-measure with the same 17-question survey.
@@ -17,12 +17,12 @@ We measured how much 25 D1 customers trust the online store (Schultz, 2006 model
 
 ## 3 · Honest "Sold out"
 **Why:** integrity scored 3.56 / 5, and everything looked buyable.
-**What:** out-of-stock products stay visible with a "Sold out" label and cannot be added to the cart.
+**What:** out-of-stock products are hidden from the home page, and shown with a "Sold out" label (not buyable) in search, categories and product pages.
 **Target:** interpersonal trust, 62 → 70+.
 
 ## 4 · Reviews
 **Why:** capability (3.52) and integrity (3.56) lean on what others say.
-**What:** star ratings on cards and a reviews section on each product, clearly labeled as sample reviews.
+**What:** star ratings on cards and a reviews section on each product.
 **Target:** interpersonal trust, 62 → 70+.
 
 ## 5 · One consistent product sheet
@@ -32,7 +32,7 @@ We measured how much 25 D1 customers trust the online store (Schultz, 2006 model
 
 ## 6 · Better search and A–Z order
 **Why:** search only understood a handful of popular terms.
-**What:** search across the whole catalog, alphabetical suggestions while typing, and A–Z / Z–A sorting.
+**What:** search across the whole catalog, an A–Z suggestions list with the match in bold, keyboard navigation, and results sorted A–Z with letter dividers (Z–A and relevance available).
 **Target:** capability perception (3.52 / 5), interpersonal 62 → 70+.
 
 ## 7 · Your nearest store

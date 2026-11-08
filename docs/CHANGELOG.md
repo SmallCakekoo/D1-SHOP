@@ -80,3 +80,29 @@ Regenerarlas: `node docs/capturar.js antes|despues`.
 - Siguen existiendo enlaces del pie de página, del ingreso y de las imágenes hacia d1.com.co y otros sitios reales; no se cambiaron porque no estaban en la lista. Solo "Ir a pagar" se redirigió al checkout simulado.
 - El checkout no valida formularios porque no tiene campos de entrada de datos personales ni de tarjeta.
 - Las capturas de página completa muestran el encabezado y el botón "Ayuda" a mitad de imagen: es un efecto de capturar páginas largas con elementos fijos.
+
+---
+
+## Pulido de confianza  (`pulido-confianza`)
+Ajustes antes de las capturas finales. No hay modo captura ni interruptores: la tienda se ve siempre como una tienda normal.
+
+**Datos de ejemplo (solo marcados en el código con `// DATOS DE PRUEBA`, no en pantalla):**
+- Cambio 1 – sellos, métodos y textos de seguridad: `src/data/pagoSeguro.js`.
+- Cambio 2 – plazos y condiciones de devolución: `src/data/politicas.js`.
+- Cambio 3 – productos agotados: `src/data/inventario.js`.
+- Cambio 4 – reseñas, nombres, estrellas y fechas: `src/data/resenas.js`.
+- Cambio 7 – tiendas: lista que ya traía la copia, `src/data/stores.json` (sin teléfono por tienda).
+- La tabla completa está en el `README.md`.
+
+| Punto | Qué cambió | Archivos |
+|---|---|---|
+| 0. Sin avisos | Se quitaron de la interfaz todos los textos «copia de prueba», «simulación» y «reseña de ejemplo». Textos que había: checkout (aviso, botón y pantalla final), `/devoluciones` (aviso), reseñas (aviso e insignia en cada reseña) y la etiqueta de accesibilidad de las estrellas. | `CheckoutPage.jsx`, `ReturnsPage.jsx`, `ProductReviews.jsx`, `Stars.jsx`, estilos, `README.md` |
+| 1. Pago seguro | «Confirmar pedido» sin «(simulación)». Iconos de los sellos dibujados enteros (caja fija de 40 px, `flex-shrink: 0`, viewBox 24×24, padding) en carrito y `/checkout`. | `InlineIcons.jsx`, `PaymentSeals.jsx`, `pagoSeguro.js`, `pago-seguro.css`, `CheckoutPage.jsx` |
+| 2. Ayuda | Icono «?» a la izquierda del texto del botón flotante y en el encabezado del panel. | `HelpButton.jsx`, `ayuda.css`, `InlineIcons.jsx` |
+| 3. Agotados | La portada oculta los agotados; búsqueda, categoría y URL directa los muestran con «Agotado». La regla vive en un solo lugar: `seMuestraEn(href, contexto)`. Un estante sin productos no se pinta. | `utils/stock.js`, `ProductShelf.jsx`, `SearchPage.jsx` |
+| 4. Reseñas | Nombres colombianos genéricos con inicial del apellido (10 reseñas de ejemplo, de 3 a 6 por producto). Estrellas de las tarjetas = promedio de la ficha. | `data/resenas.js` |
+| 6. Búsqueda | Sugerencias tituladas «Productos (A–Z)», máx. 8, con la coincidencia en negrita, flechas y Enter, y mensaje si no hay resultados. Resultados: «N resultados para 'x'», selector «Ordenar por» visible con Nombre A–Z (por defecto), Nombre Z–A y Relevancia, letras separadoras y orden recordado al afinar la búsqueda. Los listados de categoría usan las mismas opciones. | `SearchBar.jsx`, `utils/search.js`, `SearchPage.jsx`, `ProductListing.jsx`, `SortDropdown.jsx`, `busqueda.css` |
+| 7. Tienda cercana | Tarjeta propia con borde fino, esquinas redondeadas, padding uniforme, ancho completo de su columna y tarjetas de tienda separadas. | `tienda-cercana.css` |
+
+**Capturas nuevas:** `17-resultados-az-*`, `18-resultados-agotado-*`, `19-inicio-sin-agotados-*`; actualizada `15-busqueda-sugerencias-*`. Todas las de «después» se regeneraron.
+`SOLO=17,18 node capturar.js despues` genera solo algunas.
