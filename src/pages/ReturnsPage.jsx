@@ -4,7 +4,7 @@ import NearestStore from '../components/stores/NearestStore'
 import { politicaCompleta } from '../data/politicas'
 import '../styles/ayuda.css'
 
-// Política de devolución corta y clara (cambio 2). Textos de prueba: ver data/politicas.js.
+// Política de devolución corta y clara (cambio 2). DATOS DE PRUEBA: los textos viven en data/politicas.js.
 export default function ReturnsPage() {
   useEffect(() => {
     document.title = 'Devoluciones | D1'
@@ -14,7 +14,6 @@ export default function ReturnsPage() {
   return (
     <div className="d1-policy">
       <h1>Devoluciones y atención al cliente</h1>
-      <p className="d1-policy__prueba">Copia de prueba: plazos y condiciones de ejemplo.</p>
       {politicaCompleta.map((s) => (
         <section key={s.titulo}>
           <h2>{s.titulo}</h2>

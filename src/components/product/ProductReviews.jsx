@@ -2,7 +2,7 @@ import Stars from './Stars'
 import { resenasDe } from '../../utils/resenas'
 import '../../styles/resenas.css'
 
-// Lista de reseñas del producto (cambio 4). Todas son de ejemplo y se marcan como tales.
+// Lista de reseñas del producto (cambio 4). DATOS DE PRUEBA: las reseñas viven en data/resenas.js.
 export default function ProductReviews({ href }) {
   const { lista, promedio, cantidad } = resenasDe(href)
   return (
@@ -12,7 +12,6 @@ export default function ProductReviews({ href }) {
         <strong>{promedio.toFixed(1).replace('.', ',')}</strong> de 5 · {cantidad} reseñas
         <Stars href={href} />
       </p>
-      <p className="d1-reviews__prueba">Copia de prueba: estas reseñas son de ejemplo, no son de clientes reales.</p>
       <ul>
         {lista.map((r) => (
           <li key={r.autor + r.fecha}>
@@ -23,7 +22,6 @@ export default function ProductReviews({ href }) {
                 ))}
               </span>
               <strong>{r.autor}</strong>
-              <span className="d1-reviews__badge">Reseña de ejemplo</span>
             </div>
             <p>{r.texto}</p>
             <small>{new Date(r.fecha).toLocaleDateString('es-CO', { year: 'numeric', month: 'long', day: 'numeric' })}</small>

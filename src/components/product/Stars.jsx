@@ -1,11 +1,11 @@
 import { resenasDe } from '../../utils/resenas'
 import '../../styles/resenas.css'
 
-// Estrellas + cantidad (cambio 4). Datos de prueba: ver data/resenas.js.
+// Estrellas + cantidad (cambio 4). DATOS DE PRUEBA: ver data/resenas.js.
 export default function Stars({ href, link }) {
   const { promedio, cantidad } = resenasDe(href)
   const llenas = Math.round(promedio)
-  const etiqueta = `${promedio.toFixed(1).replace('.', ',')} de 5 estrellas, ${cantidad} reseñas de ejemplo`
+  const etiqueta = `${promedio.toFixed(1).replace('.', ',')} de 5 estrellas, ${cantidad} reseñas`
   const contenido = (
     <>
       <span className="d1-stars__row" aria-hidden="true">
