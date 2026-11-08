@@ -58,7 +58,7 @@ function matches(catalog, q) {
 }
 
 // Sugerencias mientras se escribe, en orden alfabético.
-export function suggestProducts(query, limit = 6) {
+export function suggestProducts(query, limit = 8) {
   const q = normalize(query)
   if (q.length < 2) return []
   return matches(fullCatalog(), q)
@@ -74,7 +74,12 @@ export function searchProducts(query) {
 
   const indexed = searchIndex[q]
   if (indexed) {
-    return { products: indexed.items.map(fromIndex), total: indexed.total, complete: indexed.items.length >= indexed.total }
+    // Los de la búsqueda guardada primero; luego cualquier otro producto del catálogo que también coincida.
+    const seen = new Set()
+    const products = [...indexed.items.map(fromIndex), ...matches(fullCatalog(), q)].filter(
+      (p) => !seen.has(p.href) && seen.add(p.href),
+    )
+    return { products, total: Math.max(indexed.total, products.length), complete: products.length >= indexed.total }
   }
 
   const products = matches(fullCatalog(), q)
@@ -83,3 +88,38 @@ export function searchProducts(query) {
 
 // Productos de la sección "Promociones que te encantarán" cuando no hay resultados.
 export const promotedProducts = () => searchIndex.aseo.items.slice(0, 8).map(fromIndex)
+
+// Parte el nombre en trozos para resaltar en negrita lo que coincide con lo escrito (sin importar tildes ni mayúsculas).
+export function resaltar(nombre, query) {
+  // Se normaliza letra por letra para conservar los índices del texto original.
+  let plano = ''
+  const indice = []
+  ;[...nombre].forEach((ch, i) => {
+    const n = ch.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    for (const c of n) {
+      plano += c
+      indice.push(i)
+    }
+  })
+  const marcas = new Array(nombre.length).fill(false)
+  normalize(query)
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((t) => (t.length > 3 ? t.replace(/(es|s)$/, '') : t))
+    .forEach((t) => {
+      let desde = 0
+      for (;;) {
+        const pos = plano.indexOf(t, desde)
+        if (pos === -1) break
+        if (pos === 0 || plano[pos - 1] === ' ') for (let k = pos; k < pos + t.length; k++) marcas[indice[k]] = true
+        desde = pos + 1
+      }
+    })
+  const trozos = []
+  ;[...nombre].forEach((ch, i) => {
+    const ultimo = trozos[trozos.length - 1]
+    if (ultimo && ultimo.negrita === marcas[i]) ultimo.texto += ch
+    else trozos.push({ texto: ch, negrita: marcas[i] })
+  })
+  return trozos
+}

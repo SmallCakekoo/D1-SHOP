@@ -27,7 +27,7 @@ export default function SortDropdown({ options, value, onChange }) {
           onClick={() => setOpen((v) => !v)}
         >
           <span className={`${R}filterPopupTitle c-on-base t-action--small ml-auto-ns`}>
-            <span className={`${R}orderByText c-muted-2 dn dib-ns`}>Ordenar por</span> {value}
+            <span className={`${R}orderByText c-muted-2`}>Ordenar por:</span> {value}
           </span>
           <span className={`${R}filterPopupArrowIcon ph5 pt1`}>
             <Icon id="nav-caret--down" size={10} />

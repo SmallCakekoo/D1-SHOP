@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import ProductListing from '../components/category/ProductListing'
+import ProductListing, { A_Z, Z_A } from '../components/category/ProductListing'
 import ProductShelf from '../components/home/ProductShelf'
 import AppLink from '../components/ui/AppLink'
 import { notFoundBanner } from '../data/searchIndex'
@@ -9,6 +9,25 @@ import { promotedProducts, searchProducts } from '../utils/search'
 const P = 'd1tiendas-commons-components-1-x-'
 const R = 'vtex-search-result-3-x-'
 const SITE = 'https://www.d1.com.co'
+const ORDEN_BUSQUEDA = [A_Z, Z_A, 'Relevancia']
+const CLAVE_ORDEN = 'd1-orden-busqueda'
+
+// El orden elegido se recuerda mientras se afina la búsqueda; por defecto llega en Nombre A–Z.
+const leerOrden = () => {
+  try {
+    const guardado = window.sessionStorage.getItem(CLAVE_ORDEN)
+    return ORDEN_BUSQUEDA.includes(guardado) ? guardado : A_Z
+  } catch {
+    return A_Z
+  }
+}
+const guardarOrden = (valor) => {
+  try {
+    window.sessionStorage.setItem(CLAVE_ORDEN, valor)
+  } catch {
+    /* sin almacenamiento: el orden vale solo para esta búsqueda */
+  }
+}
 
 // Sin resultados el sitio real muestra un banner y un estante de promociones.
 function NotFound() {
@@ -102,7 +121,10 @@ export default function SearchPage({ query }) {
       ) : (
         <ProductListing
           key={query}
-          title={query}
+          title={`${products.length} ${products.length === 1 ? 'resultado' : 'resultados'} para '${query}'`}
+          sortOptions={ORDEN_BUSQUEDA}
+          defaultSort={leerOrden()}
+          onSortChange={guardarOrden}
           products={products}
           filters={listing.filters}
           priceRange={listing.priceRange}

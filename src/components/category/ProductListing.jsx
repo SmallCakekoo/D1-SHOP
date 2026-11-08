@@ -1,22 +1,30 @@
-import { useMemo, useState } from 'react'
+import { Fragment, useMemo, useState } from 'react'
 import CategoryFilters from './CategoryFilters'
 import SortDropdown from './SortDropdown'
 import ProductCard from '../home/ProductCard'
 import Icon from '../ui/Icon'
 import { useIsDesktop } from '../../hooks/useMediaQuery'
 import { priceValue } from '../../utils/links'
+import '../../styles/busqueda.css'
 
 const P = 'd1tiendas-commons-components-1-x-'
 const R = 'vtex-search-result-3-x-'
 const SORT_OPTIONS = ['Relevancia', 'Ventas', 'Más reciente', 'Precio más alto', 'Precio más bajo']
 
 // Cambio 6: orden alfabético. Se agrega a las opciones de cualquier listado.
-const ALFABETICO = ['Nombre: A a Z', 'Nombre: Z a A']
+export const A_Z = 'Nombre A–Z'
+export const Z_A = 'Nombre Z–A'
+const ALFABETICO = [A_Z, Z_A]
+// Letra inicial para separar grupos (sin tildes ni mayúsculas); lo que no es letra va en '#'.
+const letraInicial = (name) => {
+  const l = name.trim().charAt(0).normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase()
+  return /[A-Z]/.test(l) ? l : '#'
+}
 const porNombre = (a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' })
 
 function applySort(products, sort) {
-  if (sort === 'Nombre: A a Z') return [...products].sort(porNombre)
-  if (sort === 'Nombre: Z a A') return [...products].sort((a, b) => porNombre(b, a))
+  if (sort === A_Z) return [...products].sort(porNombre)
+  if (sort === Z_A) return [...products].sort((a, b) => porNombre(b, a))
   if (sort === 'Precio más alto') return [...products].sort((a, b) => priceValue(b.price) - priceValue(a.price))
   if (sort === 'Precio más bajo') return [...products].sort((a, b) => priceValue(a.price) - priceValue(b.price))
   return products
@@ -56,10 +64,17 @@ export default function ProductListing({
   sortOptions: sortOptionsProp = SORT_OPTIONS,
   breadcrumb = null,
   footer = null,
+  defaultSort = 'Relevancia',
+  onSortChange = null,
 }) {
   const isDesktop = useIsDesktop()
   const sortOptions = [...sortOptionsProp, ...ALFABETICO.filter((o) => !sortOptionsProp.includes(o))]
-  const [sort, setSort] = useState('Relevancia')
+  const [sort, setSortState] = useState(defaultSort)
+  const setSort = (value) => {
+    setSortState(value)
+    onSortChange?.(value)
+  }
+  const alfabetico = sort === A_Z || sort === Z_A
   const [selected, setSelected] = useState({})
   const [price, setPrice] = useState([priceRange.min, priceRange.max])
   const [drawer, setDrawer] = useState(false)
@@ -159,14 +174,20 @@ export default function ProductListing({
                 <p className="t-body c-muted-1 pa5">No hay productos que coincidan con los filtros.</p>
               ) : (
                 <div className={`${R}gallery ${R}gallery--grid flex flex-row flex-wrap items-stretch bn ph1 na4 pl9-l`}>
-                  {visible.map((product) => (
-                    <div
-                      key={product.href}
-                      className={`${R}galleryItem ${R}galleryItem--normal ${R}galleryItem--grid pa4`}
-                      style={{ flexBasis: isDesktop ? '25%' : '50%', maxWidth: isDesktop ? '25%' : '50%' }}
-                    >
-                      <ProductCard product={product} />
-                    </div>
+                  {visible.map((product, i) => (
+                    <Fragment key={product.href}>
+                      {alfabetico && (i === 0 || letraInicial(product.name) !== letraInicial(visible[i - 1].name)) && (
+                        <h2 className="d1-letra" aria-label={`Productos con la letra ${letraInicial(product.name)}`}>
+                          {letraInicial(product.name)}
+                        </h2>
+                      )}
+                      <div
+                        className={`${R}galleryItem ${R}galleryItem--normal ${R}galleryItem--grid pa4`}
+                        style={{ flexBasis: isDesktop ? '25%' : '50%', maxWidth: isDesktop ? '25%' : '50%' }}
+                      >
+                        <ProductCard product={product} />
+                      </div>
+                    </Fragment>
                   ))}
                 </div>
               )}

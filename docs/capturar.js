@@ -51,6 +51,9 @@ const PAGINAS = [
   { nombre: '13-producto-agotado', ruta: '/bocadillo-veleno-dulce-naturaleza-470g-12000515/p', soloDespues: true },
   { nombre: '15-busqueda-sugerencias', ruta: '/', escribir: 'que', soloDespues: true },
   { nombre: '16-tienda-cercana', ruta: '/', tiendaCercana: true, soloDespues: true },
+  { nombre: '17-resultados-az', ruta: '/queso?map=ft&_q=queso', soloDespues: true },
+  { nombre: '18-resultados-agotado', ruta: '/dulce?map=ft&_q=dulce', soloDespues: true },
+  { nombre: '19-inicio-sin-agotados', ruta: '/', soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]

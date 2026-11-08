@@ -2,9 +2,11 @@ import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Icon from '../../ui/Icon'
 import AppLink from '../../ui/AppLink'
-import { searchUrl } from '../../../utils/links'
+import { internalPath, searchUrl } from '../../../utils/links'
+import { estaAgotado } from '../../../utils/stock'
 import { popularSearches } from '../../../data/navigation'
-import { suggestProducts } from '../../../utils/search'
+import { resaltar, suggestProducts } from '../../../utils/search'
+import '../../../styles/busqueda.css'
 
 const V = 'vtex-store-components-3-x-'
 const B = 'vtex-search-2-x-'
@@ -14,11 +16,33 @@ export default function SearchBar({ id = 'search-input' }) {
   const [params] = useSearchParams()
   const [query, setQuery] = useState(params.get('_q') ?? '')
   const [focused, setFocused] = useState(false)
-  const suggestions = suggestProducts(query) // cambio 6: sugerencias de productos mientras se escribe
+  const [active, setActive] = useState(-1)
+  const suggestions = suggestProducts(query) // sugerencias de productos A–Z mientras se escribe
+  const q = query.trim()
+  const sinResultados = q.length >= 2 && suggestions.length === 0
+
+  // Flechas para moverse por las sugerencias, Enter para abrir la elegida, Escape para cerrar.
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowDown' && suggestions.length) {
+      e.preventDefault()
+      setActive((a) => (a + 1) % suggestions.length)
+    } else if (e.key === 'ArrowUp' && suggestions.length) {
+      e.preventDefault()
+      setActive((a) => (a <= 0 ? suggestions.length - 1 : a - 1))
+    } else if (e.key === 'Escape') {
+      setFocused(false)
+    }
+  }
 
   const onSubmit = (e) => {
     e.preventDefault()
-    const q = query.trim()
+    if (active >= 0 && suggestions[active]) {
+      const destino = internalPath(suggestions[active].href)
+      setFocused(false)
+      setActive(-1)
+      if (destino) return navigate(destino)
+      return window.location.assign(suggestions[active].href)
+    }
     if (!q) return
     setFocused(false)
     navigate(searchUrl(q))
@@ -43,7 +67,15 @@ export default function SearchBar({ id = 'search-input' }) {
                     autoComplete="off"
                     placeholder="¿Qué estás buscando?"
                     value={query}
-                    onChange={(e) => setQuery(e.target.value)}
+                    onChange={(e) => {
+                      setQuery(e.target.value)
+                      setActive(-1)
+                    }}
+                    onKeyDown={onKeyDown}
+                    role="combobox"
+                    aria-expanded={focused && (suggestions.length > 0 || sinResultados)}
+                    aria-controls={`${id}-sugerencias`}
+                    aria-activedescendant={active >= 0 ? `${id}-sug-${active}` : undefined}
                     onFocus={() => setFocused(true)}
                     onBlur={() => setTimeout(() => setFocused(false), 150)}
                     className="vtex-styleguide-9-x-input ma0 border-box vtex-styleguide-9-x-hideDecorators vtex-styleguide-9-x-noAppearance br-0 br--left w-100 bn outline-0 bg-base c-on-base b--muted-4 t-body pl5"
@@ -69,18 +101,29 @@ export default function SearchBar({ id = 'search-input' }) {
               style={{ flexDirection: 'row' }}
             >
               <div className={`${B}history-and-top-wrapper`} style={{ flexDirection: 'row' }}>
-                {suggestions.length > 0 && (
-                  <article className={`${B}itemList`}>
-                    <p className={`${B}itemListTitle c-on-base`}>Productos</p>
-                    <ul className={`${B}itemListList`} style={{ listStyle: 'none', padding: 0 }}>
-                      {suggestions.map((p) => (
-                        <li key={p.href} className={`${B}itemListItem`}>
-                          <AppLink href={p.href} className={`${B}itemListLink`}>
-                            <span className={`${B}itemListLinkTitle c-on-base`}>{p.name}</span>
-                          </AppLink>
-                        </li>
-                      ))}
-                    </ul>
+                {(suggestions.length > 0 || sinResultados) && (
+                  <article className={`${B}itemList d1-sugerencias`}>
+                    {suggestions.length > 0 ? (
+                      <>
+                        <p className={`${B}itemListTitle c-on-base d1-sugerencias__titulo`}>Productos (A–Z)</p>
+                        <ul id={`${id}-sugerencias`} role="listbox" aria-label="Productos (A–Z)">
+                          {suggestions.map((p, i) => (
+                            <li key={p.href} id={`${id}-sug-${i}`} role="option" aria-selected={i === active}>
+                              <AppLink href={p.href} onMouseDown={(e) => e.preventDefault()}>
+                                <span>
+                                  {resaltar(p.name, query).map((t, k) => (t.negrita ? <mark key={k}>{t.texto}</mark> : <span key={k}>{t.texto}</span>))}
+                                </span>
+                                {estaAgotado(p.href) && <span className="d1-sugerencias__agotado">Agotado</span>}
+                              </AppLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <p className="d1-sugerencias__vacio" role="status">
+                        No encontramos productos con '{q}'. Prueba con otra palabra.
+                      </p>
+                    )}
                   </article>
                 )}
                 <article className={`${B}itemList ${B}itemList--top-search`}>

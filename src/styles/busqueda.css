@@ -1,0 +1,13 @@
+/* Pulido 6: búsqueda y orden alfabético visibles. */
+.d1-letra { flex: 0 0 100%; margin: 16px 16px 0; padding: 4px 0; font-size: 22px; font-weight: 700; color: #1f4e79; border-bottom: 2px solid #e3e3e3; }
+.d1-resultados-sub { margin: 0 0 8px; color: #555; font-size: 14px; }
+
+.d1-sugerencias { padding: 8px 16px 12px; min-width: 280px; }
+.d1-sugerencias__titulo { margin: 8px 0; font-weight: 700; }
+.d1-sugerencias ul { list-style: none; margin: 0; padding: 0; }
+.d1-sugerencias li a { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; text-decoration: none; color: inherit; }
+.d1-sugerencias li a:hover, .d1-sugerencias li[aria-selected='true'] a { background: #eef4fa; }
+.d1-sugerencias li[aria-selected='true'] a { outline: 2px solid #1f4e79; }
+.d1-sugerencias mark { background: none; color: inherit; font-weight: 800; }
+.d1-sugerencias__agotado { margin-left: auto; padding: 1px 8px; border-radius: 999px; background: #e3e3e3; color: #444; font-size: 11px; font-weight: 700; }
+.d1-sugerencias__vacio { margin: 8px 0; color: #444; }
