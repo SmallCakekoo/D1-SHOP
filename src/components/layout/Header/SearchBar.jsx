@@ -4,6 +4,7 @@ import Icon from '../../ui/Icon'
 import AppLink from '../../ui/AppLink'
 import { searchUrl } from '../../../utils/links'
 import { popularSearches } from '../../../data/navigation'
+import { suggestProducts } from '../../../utils/search'
 
 const V = 'vtex-store-components-3-x-'
 const B = 'vtex-search-2-x-'
@@ -13,6 +14,7 @@ export default function SearchBar({ id = 'search-input' }) {
   const [params] = useSearchParams()
   const [query, setQuery] = useState(params.get('_q') ?? '')
   const [focused, setFocused] = useState(false)
+  const suggestions = suggestProducts(query) // cambio 6: sugerencias de productos mientras se escribe
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -67,6 +69,20 @@ export default function SearchBar({ id = 'search-input' }) {
               style={{ flexDirection: 'row' }}
             >
               <div className={`${B}history-and-top-wrapper`} style={{ flexDirection: 'row' }}>
+                {suggestions.length > 0 && (
+                  <article className={`${B}itemList`}>
+                    <p className={`${B}itemListTitle c-on-base`}>Productos</p>
+                    <ul className={`${B}itemListList`} style={{ listStyle: 'none', padding: 0 }}>
+                      {suggestions.map((p) => (
+                        <li key={p.href} className={`${B}itemListItem`}>
+                          <AppLink href={p.href} className={`${B}itemListLink`}>
+                            <span className={`${B}itemListLinkTitle c-on-base`}>{p.name}</span>
+                          </AppLink>
+                        </li>
+                      ))}
+                    </ul>
+                  </article>
+                )}
                 <article className={`${B}itemList ${B}itemList--top-search`}>
                   <p className={`${B}itemListTitle c-on-base`}>Búsquedas populares</p>
                   <ol className={`${B}itemListList`}>

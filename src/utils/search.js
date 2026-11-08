@@ -40,6 +40,32 @@ function localCatalog() {
   return all.filter((p) => !seen.has(p.href) && seen.add(p.href))
 }
 
+// Cambio 6: catálogo completo para buscar = catálogo local + todo lo guardado en las búsquedas populares.
+function fullCatalog() {
+  const seen = new Set()
+  const fromSearches = Object.values(searchIndex).flatMap((s) => s.items.map(fromIndex))
+  return [...localCatalog(), ...fromSearches].filter((p) => !seen.has(p.href) && seen.add(p.href))
+}
+
+// Cada palabra del texto debe aparecer en nombre o marca; acepta plurales simples (quesos -> queso).
+function matches(catalog, q) {
+  const tokens = q.split(/\s+/).map((t) => (t.length > 3 ? t.replace(/(es|s)$/, '') : t))
+  return catalog.filter((p) => {
+    // La palabra buscada debe empezar una palabra del nombre ("que" encuentra queso, no blanqueador).
+    const haystack = ` ${normalize(`${p.name} ${p.brand}`)}`
+    return tokens.every((t) => haystack.includes(` ${t}`))
+  })
+}
+
+// Sugerencias mientras se escribe, en orden alfabético.
+export function suggestProducts(query, limit = 6) {
+  const q = normalize(query)
+  if (q.length < 2) return []
+  return matches(fullCatalog(), q)
+    .sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }))
+    .slice(0, limit)
+}
+
 // Busca el término en las búsquedas populares ya guardadas y, si no está, en el catálogo local.
 // "total" es la cantidad que reporta el sitio real cuando la conocemos.
 export function searchProducts(query) {
@@ -51,11 +77,7 @@ export function searchProducts(query) {
     return { products: indexed.items.map(fromIndex), total: indexed.total, complete: indexed.items.length >= indexed.total }
   }
 
-  const tokens = q.split(/\s+/)
-  const products = localCatalog().filter((p) => {
-    const haystack = normalize(`${p.name} ${p.brand}`)
-    return tokens.every((t) => haystack.includes(t))
-  })
+  const products = matches(fullCatalog(), q)
   return { products, total: products.length, complete: true }
 }
 
