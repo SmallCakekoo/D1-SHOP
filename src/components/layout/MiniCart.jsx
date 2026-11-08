@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Icon from '../ui/Icon'
 import Price from '../ui/Price'
 import AppLink from '../ui/AppLink'
+import PaymentSeals from '../ui/PaymentSeals'
 import { asset } from '../../utils/asset'
 import { useCart } from '../../context/useCart'
 
@@ -168,12 +169,14 @@ export default function MiniCart() {
                       </span>
                       <span className={`${CO}summaryItemPrice b`}>{money(total)}</span>
                     </div>
-                    <a
-                      href="https://www.d1.com.co/checkout#/cart"
+                    <Link
+                      to="/checkout"
+                      onClick={closeCart}
                       className={`${CO}minicartCheckoutButton ${BTN} mt4 no-underline flex items-center justify-center`}
                     >
                       <span className="vtex-button__label flex items-center justify-center h-100 ph6">Ir a pagar</span>
-                    </a>
+                    </Link>
+                    <PaymentSeals compact />
                   </div>
                 </>
               )}

@@ -45,6 +45,8 @@ const PAGINAS = [
   { nombre: '06-producto-basico', ruta: PRODUCTO_BASICO },
   { nombre: '07-carrito-vacio', ruta: '/', abrirCarrito: true },
   { nombre: '08-carrito-con-producto', ruta: PRODUCTO, agregarYAbrirCarrito: true },
+  // Pantallas nuevas: solo existen después del cambio que las crea.
+  { nombre: '11-checkout', ruta: PRODUCTO, agregarYAbrirCarrito: true, irAPagar: true, soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]
@@ -118,9 +120,15 @@ async function capturar(browser, tamano, pagina) {
   }
   await esperarImagenes(page)
 
+  if (pagina.irAPagar) {
+    await page.getByRole('link', { name: /Ir a pagar/ }).click()
+    await page.waitForSelector('.d1-checkout')
+    await esperarImagenes(page)
+  }
+
   const archivo = path.join(SALIDA, `${pagina.nombre}-${tamano.nombre}.png`)
   // El carrito es un panel fijo: se fotografía el viewport, no la página completa.
-  const soloViewport = pagina.abrirCarrito || pagina.agregarYAbrirCarrito
+  const soloViewport = (pagina.abrirCarrito || pagina.agregarYAbrirCarrito) && !pagina.irAPagar
   await page.screenshot({ path: archivo, fullPage: !soloViewport })
   await context.close()
   console.log('OK', path.relative(AQUI, archivo))
@@ -135,6 +143,7 @@ try {
   browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined })
   for (const tamano of TAMANOS) {
     for (const pagina of PAGINAS) {
+      if (pagina.soloDespues && momento === 'antes') continue
       try {
         await capturar(browser, tamano, pagina)
       } catch (e) {

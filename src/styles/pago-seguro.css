@@ -1,0 +1,31 @@
+/* Cambio 1: pago seguro. Estilos propios de la copia. */
+.d1-seals { display: flex; flex-wrap: wrap; gap: 8px 16px; list-style: none; margin: 12px 0 0; padding: 0; }
+.d1-seal { display: flex; align-items: center; gap: 8px; color: #1f4e79; font-size: 13px; }
+.d1-seal span { display: flex; flex-direction: column; }
+.d1-seal small { color: #555; font-size: 12px; }
+.d1-seals--compact { gap: 6px 12px; justify-content: center; }
+.d1-seals--compact .d1-seal { font-size: 12px; }
+
+.d1-checkout { max-width: 1000px; width: 100%; margin: 0 auto; padding: 24px 16px 48px; box-sizing: border-box; }
+.d1-checkout h1 { margin: 0 0 4px; }
+.d1-checkout h2 { font-size: 18px; margin: 24px 0 12px; }
+.d1-checkout__prueba { color: #8a5a00; background: #fff6df; display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 13px; margin: 0 0 4px; }
+.d1-checkout--done { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; padding-top: 48px; }
+.d1-checkout__grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+@media (min-width: 768px) { .d1-checkout__grid { grid-template-columns: 1.4fr 1fr; align-items: start; } }
+.d1-checkout__methods { border: 0; padding: 0; margin: 0; display: grid; gap: 8px; }
+.d1-method { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border: 1px solid #ccc; border-radius: 10px; cursor: pointer; }
+.d1-method--on { border-color: #1f4e79; background: #eef4fa; }
+.d1-method span { display: flex; flex-direction: column; }
+.d1-method small { color: #555; }
+.d1-checkout__faq details { border-bottom: 1px solid #e3e3e3; padding: 10px 0; }
+.d1-checkout__faq summary { cursor: pointer; font-weight: 600; }
+.d1-checkout__faq p { margin: 8px 0 0; color: #444; }
+.d1-checkout__summary { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+.d1-checkout__summary h2 { margin-top: 0; }
+.d1-checkout__summary ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.d1-checkout__summary li { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.d1-checkout__total { display: flex; justify-content: space-between; margin: 16px 0; font-size: 18px; }
+.d1-checkout__btn { display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box; min-height: 44px; padding: 0 20px; border: 0; border-radius: 999px; background: #e30613; color: #fff; font-weight: 600; text-decoration: none; cursor: pointer; }
+.d1-checkout--done .d1-checkout__btn { width: auto; }
+.d1-minicart-seals { padding: 0 16px 16px; }

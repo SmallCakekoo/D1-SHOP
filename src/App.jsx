@@ -10,6 +10,7 @@ import ProductPage from './pages/ProductPage'
 import RemercaPage from './pages/RemercaPage'
 import SlugPage from './pages/SlugPage'
 import LoginPage from './pages/LoginPage'
+import CheckoutPage from './pages/CheckoutPage'
 
 // El mapa (Leaflet) y los datos de tiendas solo se cargan al entrar a /tiendas.
 const StoresPage = lazy(() => import('./pages/StoresPage'))
@@ -27,6 +28,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/tiendas" element={<StoresPage />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/account" element={<LoginPage />} />
                 <Route path="/remerca/p" element={<RemercaPage />} />
