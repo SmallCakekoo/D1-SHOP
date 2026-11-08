@@ -1,0 +1,12 @@
+# Despliegue en Netlify: la app es una SPA (react-router), así que toda ruta debe servir index.html.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
