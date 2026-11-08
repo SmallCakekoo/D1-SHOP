@@ -1,4 +1,5 @@
 import Icon from '../ui/Icon'
+import NearestStore from '../stores/NearestStore'
 import { appLinks, contact, socialLinks } from '../../data/footer'
 
 const P = 'd1tiendas-commons-components-1-x-'
@@ -59,6 +60,8 @@ export default function FooterContact() {
           </ul>
         </nav>
       </div>
+
+      <NearestStore />
 
       <div
         aria-label="Redes sociales"

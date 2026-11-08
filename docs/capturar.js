@@ -50,6 +50,7 @@ const PAGINAS = [
   { nombre: '12-devoluciones', ruta: '/devoluciones', soloDespues: true },
   { nombre: '13-producto-agotado', ruta: '/bocadillo-veleno-dulce-naturaleza-470g-12000515/p', soloDespues: true },
   { nombre: '15-busqueda-sugerencias', ruta: '/', escribir: 'que', soloDespues: true },
+  { nombre: '16-tienda-cercana', ruta: '/', tiendaCercana: true, soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]
@@ -130,6 +131,15 @@ async function capturar(browser, tamano, pagina) {
     await page.waitForTimeout(300)
   }
 
+  if (pagina.tiendaCercana) {
+    await page.addStyleTag({ content: '.d1-help{display:none!important}' })
+    await page.getByRole('button', { name: 'Buscar mi tienda' }).click()
+    await page.locator('#cerca-ciudad').selectOption({ label: 'Medellin (Antioquia)' }).catch(async () => {
+      await page.locator('#cerca-ciudad').selectOption({ index: 5 })
+    })
+    await page.waitForTimeout(300)
+  }
+
   if (pagina.irAPagar) {
     await page.getByRole('link', { name: /Ir a pagar/ }).click()
     await page.waitForSelector('.d1-checkout')
@@ -139,7 +149,8 @@ async function capturar(browser, tamano, pagina) {
   const archivo = path.join(SALIDA, `${pagina.nombre}-${tamano.nombre}.png`)
   // El carrito es un panel fijo: se fotografía el viewport, no la página completa.
   const soloViewport = ((pagina.abrirCarrito || pagina.agregarYAbrirCarrito) && !pagina.irAPagar) || pagina.escribir
-  await page.screenshot({ path: archivo, fullPage: !soloViewport })
+  if (pagina.tiendaCercana) await page.locator('.d1-near').screenshot({ path: archivo })
+  else await page.screenshot({ path: archivo, fullPage: !soloViewport })
   await context.close()
   console.log('OK', path.relative(AQUI, archivo))
 }

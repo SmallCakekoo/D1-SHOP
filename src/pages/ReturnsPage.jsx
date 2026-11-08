@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { contact } from '../data/footer'
+import NearestStore from '../components/stores/NearestStore'
 import { politicaCompleta } from '../data/politicas'
 import '../styles/ayuda.css'
 
@@ -28,6 +29,7 @@ export default function ReturnsPage() {
           <a href={contact.email.href}>{contact.email.label}</a>
         </p>
       </section>
+      <NearestStore />
     </div>
   )
 }
