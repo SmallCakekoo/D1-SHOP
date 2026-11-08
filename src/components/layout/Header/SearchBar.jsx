@@ -1,52 +1,177 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Icon from '../../ui/Icon'
-import AppLink from '../../ui/AppLink'
 import { internalPath, searchUrl } from '../../../utils/links'
 import { estaAgotado } from '../../../utils/stock'
-import { popularSearches } from '../../../data/navigation'
+import { asset } from '../../../utils/asset'
 import { resaltar, suggestProducts } from '../../../utils/search'
+import { popularSearches, quickAccess } from '../../../data/navigation'
 import '../../../styles/busqueda.css'
 
 const V = 'vtex-store-components-3-x-'
-const B = 'vtex-search-2-x-'
+const MAX_RESULTADOS = 8
+const MAX_RECIENTES = 5
+const CLAVE_RECIENTES = 'd1-busquedas-recientes'
+
+const leerRecientes = () => {
+  try {
+    const lista = JSON.parse(window.localStorage.getItem(CLAVE_RECIENTES) ?? '[]')
+    return Array.isArray(lista) ? lista.filter((t) => typeof t === 'string').slice(0, MAX_RECIENTES) : []
+  } catch {
+    return []
+  }
+}
+const guardarRecientes = (lista) => {
+  try {
+    window.localStorage.setItem(CLAVE_RECIENTES, JSON.stringify(lista))
+  } catch {
+    /* sin almacenamiento: las recientes duran solo esta visita */
+  }
+}
+
+// Valor que se actualiza con un retraso corto, para que los resultados en vivo no parpadeen.
+function useDebounced(value, ms) {
+  const [debounced, setDebounced] = useState(value)
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), ms)
+    return () => clearTimeout(id)
+  }, [value, ms])
+  return debounced
+}
+
+const categoriasSugeridas = quickAccess.slice(0, 6)
 
 export default function SearchBar({ id = 'search-input' }) {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const [query, setQuery] = useState(params.get('_q') ?? '')
-  const [focused, setFocused] = useState(false)
+  const [open, setOpen] = useState(false)
   const [active, setActive] = useState(-1)
-  const suggestions = suggestProducts(query) // sugerencias de productos A–Z mientras se escribe
-  const q = query.trim()
-  const sinResultados = q.length >= 2 && suggestions.length === 0
+  const [recientes, setRecientes] = useState(leerRecientes)
+  const [top, setTop] = useState(0)
+  const anchorRef = useRef(null)
+  const inputRef = useRef(null)
 
-  // Flechas para moverse por las sugerencias, Enter para abrir la elegida, Escape para cerrar.
-  const onKeyDown = (e) => {
-    if (e.key === 'ArrowDown' && suggestions.length) {
-      e.preventDefault()
-      setActive((a) => (a + 1) % suggestions.length)
-    } else if (e.key === 'ArrowUp' && suggestions.length) {
-      e.preventDefault()
-      setActive((a) => (a <= 0 ? suggestions.length - 1 : a - 1))
-    } else if (e.key === 'Escape') {
-      setFocused(false)
+  const debounced = useDebounced(query, 150)
+  const q = debounced.trim()
+  const escribiendo = query.trim().length > 0
+  const modoResultados = escribiendo && q.length >= 2
+  const resultados = modoResultados ? suggestProducts(q, MAX_RESULTADOS) : []
+  const sinResultados = modoResultados && resultados.length === 0
+
+  const cerrar = useCallback(() => {
+    setOpen(false)
+    setActive(-1)
+  }, [])
+
+  // Clic fuera del buscador cierra el panel.
+  useEffect(() => {
+    if (!open) return undefined
+    const fuera = (e) => {
+      if (anchorRef.current && !anchorRef.current.contains(e.target)) cerrar()
     }
+    document.addEventListener('mousedown', fuera)
+    document.addEventListener('touchstart', fuera)
+    return () => {
+      document.removeEventListener('mousedown', fuera)
+      document.removeEventListener('touchstart', fuera)
+    }
+  }, [open, cerrar])
+
+  // En móvil el panel es fijo y ocupa todo el ancho: se coloca justo debajo de la barra.
+  useEffect(() => {
+    if (!open) return undefined
+    const medir = () => {
+      if (anchorRef.current) setTop(Math.round(anchorRef.current.getBoundingClientRect().bottom + 6))
+    }
+    medir()
+    window.addEventListener('scroll', medir, { passive: true })
+    window.addEventListener('resize', medir)
+    return () => {
+      window.removeEventListener('scroll', medir)
+      window.removeEventListener('resize', medir)
+    }
+  }, [open])
+
+  const buscar = (texto) => {
+    const t = texto.trim()
+    if (!t) return
+    const nuevas = [t, ...recientes.filter((r) => r.toLowerCase() !== t.toLowerCase())].slice(0, MAX_RECIENTES)
+    setRecientes(nuevas)
+    guardarRecientes(nuevas)
+    setQuery(t)
+    cerrar()
+    navigate(searchUrl(t))
+  }
+
+  const irA = (href) => {
+    cerrar()
+    const destino = internalPath(href)
+    if (destino) navigate(destino)
+  }
+
+  // Grupos del panel. Cada opción tiene su acción; el teclado recorre todas en orden.
+  const grupos = []
+  if (modoResultados && resultados.length > 0) {
+    grupos.push({
+      clave: 'productos',
+      titulo: 'Productos (A–Z)',
+      tipo: 'lista',
+      opciones: [
+        ...resultados.map((p) => ({ clave: p.href, producto: p, accion: () => irA(p.href) })),
+        { clave: 'todos', etiqueta: 'Ver todos los resultados', todos: true, accion: () => buscar(q) },
+      ],
+    })
+  } else {
+    if (sinResultados) grupos.push({ clave: 'vacio', mensaje: `No encontramos productos con '${q}'. Prueba con otra palabra.` })
+    if (!modoResultados && recientes.length > 0) {
+      grupos.push({
+        clave: 'recientes',
+        titulo: 'Búsquedas recientes',
+        tipo: 'chips',
+        limpiar: true,
+        opciones: recientes.map((t) => ({ clave: t, etiqueta: t, accion: () => buscar(t) })),
+      })
+    }
+    if (!modoResultados) {
+      grupos.push({
+        clave: 'populares',
+        titulo: 'Búsquedas populares',
+        tipo: 'chips',
+        opciones: popularSearches.map((s) => ({ clave: s.href, etiqueta: s.label, accion: () => buscar(s.label) })),
+      })
+    }
+    grupos.push({
+      clave: 'categorias',
+      titulo: 'Categorías sugeridas',
+      tipo: 'chips',
+      opciones: categoriasSugeridas.map((c) => ({ clave: c.href, etiqueta: c.label, accion: () => irA(c.href) })),
+    })
+  }
+  let n = 0
+  grupos.forEach((g) => g.opciones?.forEach((o) => { o.idx = n++ }))
+  const total = n
+
+  const onKeyDown = (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (!open) return setOpen(true)
+      if (!total) return undefined
+      setActive((a) => (e.key === 'ArrowDown' ? (a + 1) % total : a <= 0 ? total - 1 : a - 1))
+    } else if (e.key === 'Escape') {
+      cerrar() // el foco se queda en la barra
+    }
+    return undefined
   }
 
   const onSubmit = (e) => {
     e.preventDefault()
-    if (active >= 0 && suggestions[active]) {
-      const destino = internalPath(suggestions[active].href)
-      setFocused(false)
-      setActive(-1)
-      if (destino) return navigate(destino)
-      return window.location.assign(suggestions[active].href)
-    }
-    if (!q) return
-    setFocused(false)
-    navigate(searchUrl(q))
+    const elegida = grupos.flatMap((g) => g.opciones ?? []).find((o) => o.idx === active)
+    if (elegida) return elegida.accion()
+    return buscar(query)
   }
+
+  const idOpcion = (i) => `${id}-op-${i}`
 
   return (
     <div
@@ -57,11 +182,12 @@ export default function SearchBar({ id = 'search-input' }) {
           <label htmlFor={id} className={`${V}visuallyHidden`}>
             ¿Qué estás buscando?
           </label>
-          <div className={`${V}autoCompleteOuterContainer ${V}autoCompleteOuterContainer--search-bar`}>
-            <form className="w-100 flex" onSubmit={onSubmit}>
+          <div ref={anchorRef} className={`${V}autoCompleteOuterContainer ${V}autoCompleteOuterContainer--search-bar d1-search-anchor`}>
+            <form className="w-100 flex" onSubmit={onSubmit} role="search">
               <label className="vtex-input w-100">
                 <div className="vtex-input-prefix__group flex flex-row items-stretch overflow-hidden b--solid b--muted-4 h-large">
                   <input
+                    ref={inputRef}
                     id={id}
                     type="text"
                     autoComplete="off"
@@ -70,14 +196,16 @@ export default function SearchBar({ id = 'search-input' }) {
                     onChange={(e) => {
                       setQuery(e.target.value)
                       setActive(-1)
+                      setOpen(true)
                     }}
                     onKeyDown={onKeyDown}
+                    onFocus={() => setOpen(true)}
+                    onClick={() => setOpen(true)}
                     role="combobox"
-                    aria-expanded={focused && (suggestions.length > 0 || sinResultados)}
-                    aria-controls={`${id}-sugerencias`}
-                    aria-activedescendant={active >= 0 ? `${id}-sug-${active}` : undefined}
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setTimeout(() => setFocused(false), 150)}
+                    aria-expanded={open}
+                    aria-controls={`${id}-panel`}
+                    aria-autocomplete="list"
+                    aria-activedescendant={open && active >= 0 ? idOpcion(active) : undefined}
                     className="vtex-styleguide-9-x-input ma0 border-box vtex-styleguide-9-x-hideDecorators vtex-styleguide-9-x-noAppearance br-0 br--left w-100 bn outline-0 bg-base c-on-base b--muted-4 t-body pl5"
                   />
                   <span className="c-muted-2 flex items-center t-body bg-base vtex-input__suffix bl-0 br--right pr5 pl4">
@@ -94,56 +222,80 @@ export default function SearchBar({ id = 'search-input' }) {
                 </div>
               </label>
             </form>
-          </div>
-          <div className={`${B}biggy-autocomplete-wrapper`}>
-            <section
-              className={`${B}biggy-autocomplete ${focused ? '' : `${B}biggy-js-container--hidden`} w-100`}
-              style={{ flexDirection: 'row' }}
-            >
-              <div className={`${B}history-and-top-wrapper`} style={{ flexDirection: 'row' }}>
-                {(suggestions.length > 0 || sinResultados) && (
-                  <article className={`${B}itemList d1-sugerencias`}>
-                    {suggestions.length > 0 ? (
-                      <>
-                        <p className={`${B}itemListTitle c-on-base d1-sugerencias__titulo`}>Productos (A–Z)</p>
-                        <ul id={`${id}-sugerencias`} role="listbox" aria-label="Productos (A–Z)">
-                          {suggestions.map((p, i) => (
-                            <li key={p.href} id={`${id}-sug-${i}`} role="option" aria-selected={i === active}>
-                              <AppLink href={p.href} onMouseDown={(e) => e.preventDefault()}>
-                                <span>
-                                  {resaltar(p.name, query).map((t, k) => (t.negrita ? <mark key={k}>{t.texto}</mark> : <span key={k}>{t.texto}</span>))}
-                                </span>
-                                {estaAgotado(p.href) && <span className="d1-sugerencias__agotado">Agotado</span>}
-                              </AppLink>
+
+            {open && (
+              <div id={`${id}-panel`} className="d1-search-panel" style={{ '--d1-search-top': `${top}px` }}>
+                <div className="d1-search-panel__bar">
+                  <span>{escribiendo ? 'Resultados' : 'Buscar'}</span>
+                  <button type="button" className="d1-search-panel__close" onMouseDown={(e) => e.preventDefault()} onClick={cerrar}>
+                    Cerrar
+                  </button>
+                </div>
+                <div role="listbox" aria-label="Sugerencias de búsqueda" onMouseDown={(e) => e.preventDefault()}>
+                  {grupos.map((g) =>
+                    g.mensaje ? (
+                      <p key={g.clave} className="d1-search-panel__vacio" role="status">
+                        {g.mensaje}
+                      </p>
+                    ) : (
+                      <section key={g.clave} className="d1-search-group" aria-label={g.titulo}>
+                        <h3 className="d1-search-group__title">
+                          {g.titulo}
+                          {g.limpiar && (
+                            <button
+                              type="button"
+                              className="d1-search-group__clear"
+                              onClick={() => {
+                                setRecientes([])
+                                guardarRecientes([])
+                              }}
+                            >
+                              Borrar
+                            </button>
+                          )}
+                        </h3>
+                        <ul className={g.tipo === 'chips' ? 'd1-chips' : 'd1-search-list'}>
+                          {g.opciones.map((o) => (
+                            <li
+                              key={o.clave}
+                              id={idOpcion(o.idx)}
+                              role="option"
+                              aria-selected={o.idx === active}
+                              className={o.todos ? 'd1-search-all' : undefined}
+                              onClick={o.accion}
+                            >
+                              {o.producto ? (
+                                <ResultadoProducto producto={o.producto} query={q} />
+                              ) : (
+                                <span className={g.tipo === 'chips' ? 'd1-chip' : undefined}>{o.etiqueta}</span>
+                              )}
                             </li>
                           ))}
                         </ul>
-                      </>
-                    ) : (
-                      <p className="d1-sugerencias__vacio" role="status">
-                        No encontramos productos con '{q}'. Prueba con otra palabra.
-                      </p>
-                    )}
-                  </article>
-                )}
-                <article className={`${B}itemList ${B}itemList--top-search`}>
-                  <p className={`${B}itemListTitle c-on-base`}>Búsquedas populares</p>
-                  <ol className={`${B}itemListList`}>
-                    {popularSearches.map((item, i) => (
-                      <li key={item.href} className={`${B}itemListItem`}>
-                        <AppLink href={item.href} className={`${B}itemListLink`}>
-                          <span className={`${B}itemListPrefix`}>{i + 1}.</span>
-                          <span className={`${B}itemListLinkTitle c-on-base`}>{item.label}</span>
-                        </AppLink>
-                      </li>
-                    ))}
-                  </ol>
-                </article>
+                      </section>
+                    ),
+                  )}
+                </div>
               </div>
-            </section>
+            )}
           </div>
         </div>
       </div>
     </div>
+  )
+}
+
+function ResultadoProducto({ producto, query }) {
+  return (
+    <span className="d1-result">
+      <img src={asset(producto.image)} alt="" width="40" height="40" loading="lazy" />
+      <span className="d1-result__text">
+        <span className="d1-result__name">
+          {resaltar(producto.name, query).map((t, k) => (t.negrita ? <mark key={k}>{t.texto}</mark> : <span key={k}>{t.texto}</span>))}
+        </span>
+        <span className="d1-result__price">{producto.price}</span>
+      </span>
+      {estaAgotado(producto.href) && <span className="d1-result__agotado">Agotado</span>}
+    </span>
   )
 }

@@ -2,12 +2,45 @@
 .d1-letra { flex: 0 0 100%; margin: 16px 16px 0; padding: 4px 0; font-size: 22px; font-weight: 700; color: #1f4e79; border-bottom: 2px solid #e3e3e3; }
 .d1-resultados-sub { margin: 0 0 8px; color: #555; font-size: 14px; }
 
-.d1-sugerencias { padding: 8px 16px 12px; min-width: 280px; }
-.d1-sugerencias__titulo { margin: 8px 0; font-weight: 700; }
-.d1-sugerencias ul { list-style: none; margin: 0; padding: 0; }
-.d1-sugerencias li a { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 8px; text-decoration: none; color: inherit; }
-.d1-sugerencias li a:hover, .d1-sugerencias li[aria-selected='true'] a { background: #eef4fa; }
-.d1-sugerencias li[aria-selected='true'] a { outline: 2px solid #1f4e79; }
-.d1-sugerencias mark { background: none; color: inherit; font-weight: 800; }
-.d1-sugerencias__agotado { margin-left: auto; padding: 1px 8px; border-radius: 999px; background: #e3e3e3; color: #444; font-size: 11px; font-weight: 700; }
-.d1-sugerencias__vacio { margin: 8px 0; color: #444; }
+
+/* Panel de búsqueda: justo debajo de la barra, con su mismo ancho. */
+.d1-search-anchor { position: relative; }
+.d1-search-panel {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 1001;
+  box-sizing: border-box; max-height: min(70vh, 640px); overflow-y: auto;
+  padding: 12px 14px 14px; background: #fff; color: #1b2430;
+  border: 1px solid #dfe3e8; border-radius: 14px; box-shadow: 0 10px 28px rgba(15, 30, 50, 0.14);
+  text-align: left; font-size: 14px;
+}
+.d1-search-panel__bar { display: none; align-items: center; justify-content: space-between; margin-bottom: 8px; font-weight: 700; }
+.d1-search-panel__close { min-height: 40px; padding: 0 14px; border: 1px solid #1f4e79; border-radius: 999px; background: #fff; color: #1f4e79; font: inherit; font-weight: 600; cursor: pointer; }
+.d1-search-group + .d1-search-group { margin-top: 14px; }
+.d1-search-group__title { display: flex; align-items: center; justify-content: space-between; margin: 0 0 8px; font-size: 13px; font-weight: 700; color: #1f4e79; }
+.d1-search-group__clear { border: 0; background: none; color: #555; font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; }
+.d1-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.d1-chip { display: inline-block; padding: 7px 14px; border: 1px solid #d5e3f0; border-radius: 999px; background: #f3f8fc; cursor: pointer; }
+.d1-chips li:hover .d1-chip, .d1-chips li[aria-selected='true'] .d1-chip { background: #dfeaf6; border-color: #1f4e79; }
+.d1-search-list { margin: 0; padding: 0; list-style: none; }
+.d1-search-list li { border-radius: 10px; cursor: pointer; }
+.d1-search-list li:hover, .d1-search-list li[aria-selected='true'] { background: #eef4fa; }
+.d1-search-list li[aria-selected='true'] { outline: 2px solid #1f4e79; outline-offset: -2px; }
+.d1-result { display: flex; align-items: center; gap: 10px; padding: 6px 8px; }
+.d1-result img { flex: 0 0 40px; width: 40px; height: 40px; object-fit: contain; border-radius: 8px; background: #fff; }
+.d1-result__text { display: flex; flex-direction: column; min-width: 0; flex: 1; }
+.d1-result__name { line-height: 1.25; }
+.d1-result__name mark { background: none; color: inherit; font-weight: 800; }
+.d1-result__price { color: #555; font-size: 13px; }
+.d1-result__agotado { flex: 0 0 auto; padding: 1px 8px; border-radius: 999px; background: #e3e3e3; color: #444; font-size: 11px; font-weight: 700; }
+.d1-search-all { margin-top: 6px; padding: 10px 8px; font-weight: 700; color: #1f4e79; text-align: center; border-top: 1px solid #e3e3e3; border-radius: 0 0 10px 10px !important; }
+.d1-search-panel__vacio { margin: 0 0 12px; padding: 10px 12px; background: #f6f7f9; border-radius: 10px; }
+
+/* Móvil: el panel ocupa todo el ancho de la pantalla, debajo de la barra, y muestra el botón de cerrar. */
+@media (max-width: 1023px) {
+  .d1-search-panel {
+    position: fixed; top: var(--d1-search-top, 120px); left: 8px; right: 8px;
+    max-height: calc(100dvh - var(--d1-search-top, 120px) - 16px);
+  }
+  .d1-search-panel__bar { display: flex; }
+  /* Chips en dos filas, con desplazamiento horizontal si hay más. */
+  .d1-chips { display: grid; grid-template-rows: repeat(2, auto); grid-auto-flow: column; grid-auto-columns: max-content; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+}
