@@ -165,6 +165,8 @@ try {
   for (const tamano of TAMANOS) {
     for (const pagina of PAGINAS) {
       if (pagina.soloDespues && momento === 'antes') continue
+      // SOLO=01,05 genera solo esas capturas (por prefijo de nombre).
+      if (process.env.SOLO && !process.env.SOLO.split(',').some((p) => pagina.nombre.startsWith(p))) continue
       try {
         await capturar(browser, tamano, pagina)
       } catch (e) {

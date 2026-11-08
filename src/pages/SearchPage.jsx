@@ -40,7 +40,7 @@ function NotFound() {
               />
             </AppLink>
           </div>
-          <ProductShelf shelf={shelf} />
+          <ProductShelf shelf={shelf} contexto="busqueda" />
         </section>
       </div>
     </div>

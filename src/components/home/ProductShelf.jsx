@@ -1,11 +1,15 @@
 import Slider from '../ui/Slider'
 import ProductCard from './ProductCard'
 import { asset } from '../../utils/asset'
+import { seMuestraEn } from '../../utils/stock'
 
 const P = 'd1tiendas-commons-components-1-x-'
 const BREAKPOINTS = [[0, 2], [768, 3], [1024, 4]]
 
-export default function ProductShelf({ shelf }) {
+export default function ProductShelf({ shelf, contexto = 'home' }) {
+  // Pulido 3: la portada no muestra productos agotados (regla en utils/stock.js).
+  const products = shelf.products.filter((p) => seMuestraEn(p.href, contexto))
+  if (products.length === 0) return null
   const title = `${shelf.titleLead} ${shelf.titleStrong}`
 
   return (
@@ -46,7 +50,7 @@ export default function ProductShelf({ shelf }) {
           )}
           <div className={`${P}containerLayout ${P}containerLayout--wrapperSlider ${P}containerLayout--sanity`}>
             <Slider id={shelf.id} breakpoints={BREAKPOINTS}>
-              {shelf.products.map((product) => (
+              {products.map((product) => (
                 <ProductCard key={product.href} product={product} />
               ))}
             </Slider>
