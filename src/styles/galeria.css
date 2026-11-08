@@ -1,0 +1,16 @@
+/* Detalle de producto: la foto principal ocupa todo el ancho de su columna. */
+.vtex-store-components-3-x-productImagesContainer .vtex-store-components-3-x-productImage {
+  width: 100%;
+}
+.vtex-store-components-3-x-productImagesContainer .vtex-store-components-3-x-productImageTag--main {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 560px;
+  object-fit: contain;
+}
+@media (max-width: 768px) {
+  .vtex-store-components-3-x-productImagesContainer .vtex-store-components-3-x-productImageTag--main {
+    max-height: 420px;
+  }
+}

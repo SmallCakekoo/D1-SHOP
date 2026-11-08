@@ -126,3 +126,5 @@ Ajustes antes de las capturas finales. No hay modo captura ni interruptores: la 
 | 6. Tipo de envío | Se eliminó «Selecciona el tipo de envío» del home y los botones de la franja superior, junto con el código que solo usaban ellos (`ShippingOptions`, `ChangeShippingOption`, `shippingOptions`). «Dirección de envío» no se tocó. | `Header/index.jsx`, `Home.jsx`, `data/navigation.js` |
 
 **Capturas nuevas:** `20-inicio-barra-inferior`, `21-panel-busqueda-defecto`, `22-panel-busqueda-vivo`, `23-encabezado-sin-envios` (en 1440 y 390 px).
+
+- **Detalle de producto:** la foto principal usa la versión grande (800×800) y ocupa todo el ancho de su columna; antes, los productos que venían de los estantes mostraban la miniatura de 197 px. Archivos: `src/utils/asset.js`, `src/pages/ProductPage.jsx`, `src/styles/galeria.css`.

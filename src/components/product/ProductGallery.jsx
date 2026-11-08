@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Icon from '../ui/Icon'
+import '../../styles/galeria.css'
 
 const V = 'vtex-store-components-3-x-'
 

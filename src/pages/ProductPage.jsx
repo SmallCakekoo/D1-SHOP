@@ -10,7 +10,7 @@ import { kitDetails } from '../data/kitDetails'
 import { productDetails } from '../data/productDetails'
 import { shelves } from '../data/shelves'
 import { categories } from '../data/categories'
-import { asset } from '../utils/asset'
+import { asset, imagenGrande } from '../utils/asset'
 import { productPath } from '../utils/links'
 
 const P = 'd1tiendas-commons-components-1-x-'
@@ -29,7 +29,7 @@ function findProduct(path) {
         brand: found.brand,
         price: found.price,
         href: path,
-        images: [asset(found.image)],
+        images: [imagenGrande(asset(found.image))],
         breadcrumb: [],
       }
     }
