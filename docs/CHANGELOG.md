@@ -111,3 +111,9 @@ Ajustes antes de las capturas finales. No hay modo captura ni interruptores: la 
 - **Problema:** en pantallas anchas (≥1536 px) las franjas «compras seguras» y «Suscríbete» quedaban en una columna central con márgenes grises a los costados.
 - **Qué cambió:** el fondo de cada franja se extiende de borde a borde (blanco, gris muy claro y gris del pie), y el contenido conserva su ancho máximo. Sin cambios de contenido.
 - **Archivos:** `src/styles/footer.css`, `src/components/footer/Footer.jsx`.
+
+## Tarjetas compactas, más dulces y sin enlaces a d1.com.co
+- **Tarjetas:** menos espacio entre nombre, reseñas, precio y botón (se ocultan los contenedores vacíos, imagen de 168 px, botón de 36 px). Archivo: `src/styles/tarjetas.css`.
+- **Más productos:** el estante «Halloween Dulces D1 para mi» pasó de 4 a 48 productos, extraídos una sola vez de la categoría Dulcería de la página original (nombre, marca, precio e imagen). No hay conexión en vivo. Archivo: `src/data/shelves.js`.
+- **Enlaces:** ningún `href` apunta a d1.com.co (ni a otros dominios de D1 como tiendasd1.com, Freshdesk o sivaseguro). Lo que existe en la copia se enlaza por rutas propias; lo que no, va a `#` (`src/components/ui/AppLink.jsx`). Se dejan los `mailto:` de atención al cliente, las redes sociales, las tiendas de apps y terceros (BBVA, SIC, ABACO).
+- **Pendiente conocido:** las imágenes de producto siguen cargándose desde el CDN de D1 (`d1tiendas.vtexassets.com`).

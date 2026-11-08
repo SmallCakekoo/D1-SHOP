@@ -8,6 +8,7 @@ import { productPath } from '../../utils/links'
 import { estaAgotado } from '../../utils/stock'
 import Stars from '../product/Stars'
 import '../../styles/agotado.css'
+import '../../styles/tarjetas.css'
 import { useCart } from '../../context/useCart'
 
 const S = 'vtex-product-summary-2-x-'

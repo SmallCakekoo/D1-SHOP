@@ -1,0 +1,29 @@
+/* Tarjetas de producto más compactas: sin huecos entre nombre, reseñas, precio y botón. */
+.vtex-product-summary-2-x-container--shelf .vtex-product-summary-2-x-image {
+  height: 168px !important;
+}
+.vtex-product-summary-2-x-container--shelf [class*='containerLayout--product-summary-highlights']:empty,
+.vtex-product-summary-2-x-container--shelf [class*='containerLayout--summary-discount']:empty,
+.vtex-product-summary-2-x-container--shelf [class*='containerLayout--product-summary-tag-colors'] > :empty {
+  display: none;
+}
+.vtex-product-summary-2-x-container--shelf [class*='containerLayout--product-info'] {
+  margin-top: 4px;
+}
+.vtex-product-summary-2-x-container--shelf .vtex-product-summary-2-x-nameContainer {
+  padding-top: 2px;
+  padding-bottom: 0;
+  min-height: 2.6em; /* dos líneas: así los precios quedan alineados entre tarjetas */
+}
+.vtex-product-summary-2-x-container--shelf .d1-stars {
+  margin: 2px 0 6px;
+}
+.vtex-product-summary-2-x-container--shelf [class*='containerLayout--product-summary-price'] {
+  margin-bottom: 6px;
+}
+.vtex-product-summary-2-x-container--shelf [class*='customAddToCartButton--card-summary'] .vtex-button {
+  min-height: 36px;
+}
+.vtex-product-summary-2-x-container--shelf .vtex-product-summary-2-x-element--shelf {
+  padding-bottom: 12px;
+}

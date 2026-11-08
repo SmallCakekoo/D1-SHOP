@@ -31,7 +31,7 @@ export const heroSlides = [
     "imageMobile": "https://d1tiendas.vtexassets.com/assets/vtex.file-manager-graphql/images/6ccce3e4-d7e5-4ed1-9f57-7db45d218edd___b94becda0a471c5ef423a7ff8e41a4fd.webp"
   },
   {
-    "href": "https://d1.sivaseguro.com/",
+    "href": "#",
     "image": "img/34a01090-13f8fb.webp",
     "imageMobile": "https://d1tiendas.vtexassets.com/assets/vtex.file-manager-graphql/images/80aee272-8a94-4947-9442-35b485a4bd86___b1911036e38638e8023d13ebe1ac7091.webp"
   }
