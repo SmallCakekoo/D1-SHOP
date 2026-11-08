@@ -1,9 +1,9 @@
 // DATOS DE PRUEBA (cambio 1, pago seguro): textos de ejemplo para la copia universitaria.
 // No son certificaciones reales ni describen un sistema de pago real: esta copia no procesa pagos.
 export const sellosPago = [
-  { icon: 'hpa-lock', titulo: 'Conexión cifrada', detalle: 'Tus datos viajan protegidos.' },
-  { icon: 'hpa-check-circle', titulo: 'No guardamos tu tarjeta', detalle: 'El pago lo hace tu banco.' },
-  { icon: 'mpa-credit-card', titulo: 'Pagas como prefieras', detalle: 'PSE, tarjeta o contra entrega.' },
+  { icon: 'lock', titulo: 'Conexión cifrada', detalle: 'Tus datos viajan protegidos.' },
+  { icon: 'check', titulo: 'No guardamos tu tarjeta', detalle: 'El pago lo hace tu banco.' },
+  { icon: 'card', titulo: 'Pagas como prefieras', detalle: 'PSE, tarjeta o contra entrega.' },
 ]
 
 export const metodosPago = [

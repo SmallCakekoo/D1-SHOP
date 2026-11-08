@@ -1,15 +1,18 @@
 /* Cambio 1: pago seguro. Estilos propios de la copia. */
 .d1-seals { display: flex; flex-wrap: wrap; gap: 8px 16px; list-style: none; margin: 12px 0 0; padding: 0; }
 .d1-seal { display: flex; align-items: center; gap: 8px; color: #1f4e79; font-size: 13px; }
-.d1-seal span { display: flex; flex-direction: column; }
 .d1-seal small { color: #555; font-size: 12px; }
+.d1-seal__icon { box-sizing: border-box; width: 40px; height: 40px; flex: 0 0 40px; padding: 8px; display: flex; align-items: center; justify-content: center; overflow: visible; border-radius: 50%; background: #eef4fa; color: #1f4e79; }
+.d1-seal__icon svg { width: 24px; height: 24px; flex: 0 0 24px; overflow: visible; }
+.d1-seal__text { display: flex; flex-direction: column; min-width: 0; }
 .d1-seals--compact { gap: 6px 12px; justify-content: center; }
+.d1-seals--compact .d1-seal__icon { width: 32px; height: 32px; flex-basis: 32px; padding: 6px; }
+.d1-seals--compact .d1-seal__icon svg { width: 20px; height: 20px; flex-basis: 20px; }
 .d1-seals--compact .d1-seal { font-size: 12px; }
 
 .d1-checkout { max-width: 1000px; width: 100%; margin: 0 auto; padding: 24px 16px 48px; box-sizing: border-box; }
 .d1-checkout h1 { margin: 0 0 4px; }
 .d1-checkout h2 { font-size: 18px; margin: 24px 0 12px; }
-.d1-checkout__prueba { color: #8a5a00; background: #fff6df; display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 13px; margin: 0 0 4px; }
 .d1-checkout--done { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; padding-top: 48px; }
 .d1-checkout__grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
 @media (min-width: 768px) { .d1-checkout__grid { grid-template-columns: 1.4fr 1fr; align-items: start; } }
