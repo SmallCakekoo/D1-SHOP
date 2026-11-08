@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Antes y después – Rediseño D1</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --ink:#1b2430; --muted:#5b6675; --line:#dfe3e8; --accent:#1f4e79; --ok:#1e7a46; --warn:#8a5a00; --warnbg:#fff6df; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#12161c; --card:#1b2129; --ink:#e8ecf1; --muted:#9aa5b3; --line:#2c3541; --accent:#7fb2e5; --ok:#58c58a; --warn:#f0c36a; --warnbg:#3a2f14; } }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  header, main { max-width:1200px; margin:0 auto; padding:0 16px; }
+  header { padding-top:28px; }
+  h1 { margin:0 0 4px; font-size:28px; }
+  .sub { color:var(--muted); margin:0 0 16px; }
+  .bar { position:sticky; top:0; z-index:10; background:var(--bg); padding:10px 0; border-bottom:1px solid var(--line); display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .seg { display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; }
+  .seg button { border:0; background:var(--card); color:var(--ink); padding:8px 16px; cursor:pointer; font:inherit; }
+  .seg button[aria-pressed="true"] { background:var(--accent); color:#fff; }
+  .bar .spacer { flex:1; }
+  .progress { font-weight:600; }
+  .btn { border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:8px; padding:8px 12px; cursor:pointer; font:inherit; }
+  nav.toc { display:flex; flex-wrap:wrap; gap:8px; margin:16px 0; }
+  nav.toc a { color:var(--accent); text-decoration:none; border:1px solid var(--line); background:var(--card); border-radius:999px; padding:4px 12px; font-size:14px; }
+  section.cambio { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin:20px 0; }
+  section.cambio h2 { margin:0 0 4px; font-size:22px; }
+  .meta { color:var(--muted); font-size:14px; margin:0 0 4px; }
+  .pill { display:inline-block; font-size:12px; padding:2px 10px; border-radius:999px; background:var(--bg); border:1px solid var(--line); margin-right:6px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:16px 0; }
+  @media (max-width:760px) { .pair { grid-template-columns:1fr; } }
+  figure { margin:0; }
+  figcaption { font-weight:700; margin-bottom:6px; font-size:14px; }
+  figcaption small { font-weight:400; color:var(--muted); }
+  .antes figcaption { color:var(--warn); }
+  .despues figcaption { color:var(--ok); }
+  .frame { border:1px solid var(--line); border-radius:10px; background:#fff; max-height:480px; overflow:auto; }
+  .frame img { display:block; width:100%; height:auto; }
+  .frame.movil img { max-width:390px; margin:0 auto; }
+  .nada { padding:40px 16px; text-align:center; color:var(--muted); background:var(--bg); border:1px dashed var(--line); border-radius:10px; }
+  .prueba { background:var(--warnbg); color:var(--warn); border-radius:8px; padding:8px 12px; font-size:14px; margin:8px 0; }
+  h3 { margin:20px 0 8px; font-size:16px; }
+  ul.check { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+  ul.check label { display:flex; gap:10px; align-items:flex-start; cursor:pointer; padding:8px 10px; border:1px solid var(--line); border-radius:8px; }
+  ul.check input { margin-top:4px; width:18px; height:18px; flex:none; }
+  ul.check input:checked + span { color:var(--muted); text-decoration:line-through; }
+  .nota { width:100%; min-height:60px; margin-top:8px; padding:8px; border:1px solid var(--line); border-radius:8px; background:var(--bg); color:var(--ink); font:inherit; }
+  footer { max-width:1200px; margin:32px auto; padding:0 16px; color:var(--muted); font-size:14px; }
+  @media print { .bar, nav.toc { display:none; } .frame { max-height:none; } section.cambio { break-inside:avoid-page; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Antes y después del rediseño de D1</h1>
+  <p class="sub">Copia universitaria de la tienda (Interacción Socio-Tecnológica, Icesi). Cada cambio apunta a una pregunta de la encuesta de confianza.</p>
+</header>
+<div class="bar" style="max-width:1200px;margin:0 auto;padding:10px 16px;">
+  <div class="seg" role="group" aria-label="Tamaño de pantalla">
+    <button type="button" id="b-escritorio" aria-pressed="true">Escritorio 1440 px</button>
+    <button type="button" id="b-movil" aria-pressed="false">Móvil 390 px</button>
+  </div>
+  <span class="spacer"></span>
+  <span class="progress" id="progreso" aria-live="polite"></span>
+  <button type="button" class="btn" id="b-reiniciar">Reiniciar checklist</button>
+  <button type="button" class="btn" onclick="window.print()">Imprimir</button>
+</div>
+<main>
+  <nav class="toc" id="toc" aria-label="Cambios"></nav>
+  <div id="cambios"></div>
+</main>
+<footer>
+  Capturas en <code>capturas/antes</code> y <code>capturas/despues</code>; se regeneran con <code>node capturar.js antes|despues</code>.
+  El checklist se guarda solo en este navegador. Los datos de ejemplo (reseñas, plazos de devolución y agotados) son de prueba.
+</footer>
+
+<script>
+// Cada captura se nombra "<nombre>-<tamano>.png". "antes: null" significa que esa pantalla no existía.
+const CAMBIOS = [
+  {
+    id: 1, titulo: 'Pago seguro', variable: 'Institucional', pregunta: 'INST_SEC', dato: 'Seguridad de datos y pago: 3,36 / 5',
+    pares: [
+      { titulo: 'Carrito', antes: '08-carrito-con-producto', despues: '08-carrito-con-producto' },
+      { titulo: 'Pantalla de pago', antes: null, despues: '11-checkout' },
+    ],
+    criterios: [
+      'El carrito muestra tres sellos de pago seguro debajo del botón «Ir a pagar».',
+      '«Ir a pagar» abre /checkout dentro de la copia, no el sitio real de D1.',
+      'El checkout muestra al menos tres métodos de pago con nombre claro (PSE, tarjeta, contra entrega).',
+      'El checkout explica en lenguaje simple cómo se protege el pago (mínimo 3 preguntas).',
+      'Un aviso visible dice que es una copia de prueba y que no se procesa ningún pago.',
+      'No existe ningún campo para escribir número de tarjeta, claves ni datos personales.',
+      'Con el carrito vacío, /checkout lo dice y ofrece volver a comprar.',
+      'Se ve bien en móvil, sin scroll horizontal.',
+    ],
+  },
+  {
+    id: 2, titulo: 'Devoluciones y atención al cliente', variable: 'Institucional e Interpersonal', pregunta: 'INST_GUAR, INST_LEG, ABI_BENE', dato: 'Políticas y respaldo legal: 3,28 / 5 · Benevolencia: 3,28 / 5',
+    pares: [
+      { titulo: 'Producto', antes: '05-producto', despues: '05-producto' },
+      { titulo: 'Política de devolución', antes: null, despues: '12-devoluciones' },
+    ],
+    prueba: 'El plazo de 5 días y las condiciones son datos de prueba, no la política real de D1.',
+    criterios: [
+      'La ficha de cualquier producto muestra el resumen de devolución sin tener que desplazarse al pie de página.',
+      'El carrito muestra el mismo resumen de devolución.',
+      'El resumen cabe en tres líneas cortas y tiene enlace a la política completa.',
+      'El botón «Ayuda» aparece en todas las páginas y abre teléfono, correo y devoluciones.',
+      'El botón «Ayuda» se cierra con Escape y no tapa el botón de comprar en móvil.',
+      '/devoluciones responde: cuándo, cómo, cómo se devuelve el dinero y qué no se devuelve.',
+      'Los textos de ejemplo están marcados como datos de prueba.',
+    ],
+  },
+  {
+    id: 3, titulo: 'Productos agotados', variable: 'Interpersonal', pregunta: 'ABI_INTEG', dato: 'Integridad: 3,56 / 5',
+    pares: [
+      { titulo: 'Inicio (estante)', antes: '01-inicio', despues: '01-inicio' },
+      { titulo: 'Ficha de un producto agotado', antes: null, despues: '13-producto-agotado' },
+    ],
+    prueba: 'Los 5 productos agotados son de ejemplo y no reflejan el inventario real.',
+    criterios: [
+      'Los productos agotados siguen visibles en estantes, categoría y búsqueda (no se ocultan).',
+      'La tarjeta muestra la etiqueta «Agotado», imagen atenuada y botón deshabilitado.',
+      'La ficha reemplaza «Agregar al Carrito» y «Comprar ahora» por «Agotado» y un aviso.',
+      'No se puede agregar un agotado al carrito desde ninguna vía (tarjeta, vista rápida, ficha).',
+      'Los productos disponibles se compran igual que antes.',
+    ],
+  },
+  {
+    id: 4, titulo: 'Reseñas', variable: 'Interpersonal', pregunta: 'ABI_ABIL, ABI_INTEG', dato: 'Capacidad: 3,52 / 5 · Integridad: 3,56 / 5',
+    pares: [
+      { titulo: 'Inicio (tarjetas con estrellas)', antes: '01-inicio', despues: '01-inicio' },
+      { titulo: 'Reseñas en la ficha', antes: '05-producto', despues: '05-producto' },
+    ],
+    prueba: 'Las reseñas son inventadas y llevan la insignia «Reseña de ejemplo». Avisar a las participantes.',
+    criterios: [
+      'Cada tarjeta de producto muestra estrellas y cantidad de reseñas.',
+      'La ficha muestra el promedio, la cantidad y una lista de reseñas.',
+      'Cada reseña tiene la insignia «Reseña de ejemplo» y la sección tiene un aviso de que son de prueba.',
+      'Las estrellas tienen texto alternativo para lectores de pantalla.',
+      'Ninguna reseña afirma algo específico (ingredientes, calidad) que no esté en los datos.',
+    ],
+  },
+  {
+    id: 5, titulo: 'Ficha de producto coherente', variable: 'Interpersonal', pregunta: 'ABI_ABIL', dato: 'Capacidad: 3,52 / 5',
+    pares: [
+      { titulo: 'Producto sin descripción previa', antes: '06-producto-basico', despues: '06-producto-basico' },
+      { titulo: 'Producto con descripción', antes: '05-producto', despues: '05-producto' },
+    ],
+    criterios: [
+      'Todos los productos muestran los mismos siete campos y en el mismo orden.',
+      'Lo que no se sabe aparece como «No informado», sin información inventada.',
+      'La ficha del producto con descripción conserva sus datos reales (conservación, origen, componentes).',
+      'En los kits de donación sigue disponible el bloque de condiciones de compra.',
+      'En móvil cada campo se lee en una columna, sin cortes de texto.',
+    ],
+  },
+  {
+    id: 6, titulo: 'Búsqueda y orden alfabético', variable: 'Interpersonal', pregunta: 'ABI_ABIL', dato: 'Capacidad: 3,52 / 5',
+    pares: [
+      { titulo: 'Resultados de búsqueda', antes: '03-busqueda', despues: '03-busqueda' },
+      { titulo: 'Sugerencias al escribir', antes: null, despues: '15-busqueda-sugerencias' },
+    ],
+    criterios: [
+      'Al escribir dos letras aparecen sugerencias de productos en orden alfabético.',
+      'Buscar con o sin tilde, en mayúsculas o en plural da los mismos resultados (queso / Quesos).',
+      'La sugerencia lleva a la ficha del producto.',
+      'El listado ofrece «Nombre: A a Z» y «Nombre: Z a A» y ordena bien (Ñ y tildes incluidas).',
+      'Una búsqueda sin resultados sigue mostrando la página de «no encontramos».',
+    ],
+  },
+  {
+    id: 7, titulo: 'Tienda más cercana', variable: 'Institucional e Interpersonal', pregunta: 'INST_LEG, ABI_BENE', dato: 'Primera compra confía menos (54) que recurrente (62)',
+    pares: [
+      { titulo: 'Bloque de la tienda más cercana', antes: null, despues: '16-tienda-cercana' },
+      { titulo: 'Pie de página (antes)', antes: '01-inicio', despues: null },
+    ],
+    prueba: 'Direcciones y horarios salen de la lista de tiendas de la copia; no trae teléfono por tienda, se muestra el de atención al cliente.',
+    criterios: [
+      'El pie de página y /devoluciones muestran «Tu tienda más cercana».',
+      'Al elegir una ciudad aparecen hasta tres tiendas con dirección y horario.',
+      'Cada tienda muestra un teléfono de contacto que se puede tocar para llamar.',
+      '«Usar mi ubicación» ordena por distancia y, si se niega el permiso, avisa y deja elegir ciudad.',
+      'La ciudad elegida se recuerda en la siguiente visita.',
+      'La ubicación no se envía a ningún servidor.',
+    ],
+  },
+];
+
+const CLAVE = 'd1-checklist-v1';
+let tam = 'escritorio';
+let estado = {};
+try { estado = JSON.parse(localStorage.getItem(CLAVE) || '{}'); } catch (e) { estado = {}; }
+const guardar = () => { try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) { /* sin almacenamiento */ } };
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+function figura(clase, etiqueta, nombre, titulo) {
+  if (!nombre) {
+    return `<figure class="${clase}"><figcaption>${etiqueta}</figcaption><div class="nada">${clase === 'antes' ? 'Esta pantalla no existía.' : 'Sin cambios en esta vista.'}</div></figure>`;
+  }
+  const carpeta = clase === 'antes' ? 'antes' : 'despues';
+  const archivo = `capturas/${carpeta}/${nombre}-${tam}.png`;
+  return `<figure class="${clase}"><figcaption>${etiqueta} <small>· ${esc(titulo)}</small></figcaption>
+    <div class="frame ${tam}"><img loading="lazy" src="${archivo}" alt="${etiqueta}: ${esc(titulo)} (${tam})"></div></figure>`;
+}
+
+function pintar() {
+  document.getElementById('toc').innerHTML = CAMBIOS.map((c) => `<a href="#c${c.id}">${c.id}. ${esc(c.titulo)}</a>`).join('');
+  document.getElementById('cambios').innerHTML = CAMBIOS.map((c) => `
+    <section class="cambio" id="c${c.id}">
+      <h2>${c.id}. ${esc(c.titulo)}</h2>
+      <p class="meta"><span class="pill">${esc(c.variable)}</span><span class="pill">${esc(c.pregunta)}</span> ${esc(c.dato)}</p>
+      ${c.prueba ? `<p class="prueba"><strong>Dato de prueba:</strong> ${esc(c.prueba)}</p>` : ''}
+      ${c.pares.map((p) => `<div class="pair">${figura('antes', 'Antes', p.antes, p.titulo)}${figura('despues', 'Después', p.despues, p.titulo)}</div>`).join('')}
+      <h3>Checklist de criterios</h3>
+      <ul class="check">
+        ${c.criterios.map((t, i) => { const k = `c${c.id}-${i}`; return `<li><label><input type="checkbox" data-k="${k}" ${estado[k] ? 'checked' : ''}><span>${esc(t)}</span></label></li>`; }).join('')}
+      </ul>
+      <textarea class="nota" data-k="n${c.id}" placeholder="Notas del cambio ${c.id}…" aria-label="Notas del cambio ${c.id}">${esc(estado['n' + c.id] || '')}</textarea>
+    </section>`).join('');
+  progreso();
+}
+
+function progreso() {
+  const total = CAMBIOS.reduce((t, c) => t + c.criterios.length, 0);
+  const hechos = CAMBIOS.reduce((t, c) => t + c.criterios.filter((_, i) => estado[`c${c.id}-${i}`]).length, 0);
+  document.getElementById('progreso').textContent = `${hechos} de ${total} criterios cumplidos`;
+}
+
+document.addEventListener('change', (e) => {
+  if (e.target.matches('input[type=checkbox][data-k]')) { estado[e.target.dataset.k] = e.target.checked; guardar(); progreso(); }
+});
+document.addEventListener('input', (e) => {
+  if (e.target.matches('textarea[data-k]')) { estado[e.target.dataset.k] = e.target.value; guardar(); }
+});
+function elegirTam(nuevo) {
+  tam = nuevo;
+  document.getElementById('b-escritorio').setAttribute('aria-pressed', nuevo === 'escritorio');
+  document.getElementById('b-movil').setAttribute('aria-pressed', nuevo === 'movil');
+  pintar();
+}
+document.getElementById('b-escritorio').onclick = () => elegirTam('escritorio');
+document.getElementById('b-movil').onclick = () => elegirTam('movil');
+document.getElementById('b-reiniciar').onclick = () => {
+  if (confirm('¿Borrar todas las marcas y notas del checklist?')) { estado = {}; guardar(); pintar(); }
+};
+pintar();
+</script>
+</body>
+</html>
