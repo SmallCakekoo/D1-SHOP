@@ -1,0 +1,13 @@
+/* Pulido del pie de página: cada franja ocupa todo el ancho (sin márgenes grises a los costados).
+   El contenido conserva su ancho máximo; solo el fondo se extiende hasta los bordes de la pantalla. */
+.vtex-store-footer-2-x-footerLayout {
+  overflow-x: clip;
+}
+.d1tiendas-commons-components-1-x-containerLayout.d1tiendas-commons-components-1-x-containerLayout--deals.d1tiendas-commons-components-1-x-containerLayout--footer {
+  box-shadow: 0 0 0 100vmax #fff;
+  clip-path: inset(0 -100vmax);
+}
+.d1tiendas-commons-components-1-x-containerLayout.d1tiendas-commons-components-1-x-containerLayout--news-letter.d1tiendas-commons-components-1-x-containerLayout--footer {
+  box-shadow: 0 0 0 100vmax #f9f9f9;
+  clip-path: inset(0 -100vmax);
+}

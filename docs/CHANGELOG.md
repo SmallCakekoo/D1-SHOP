@@ -106,3 +106,8 @@ Ajustes antes de las capturas finales. No hay modo captura ni interruptores: la 
 
 **Capturas nuevas:** `17-resultados-az-*`, `18-resultados-agotado-*`, `19-inicio-sin-agotados-*`; actualizada `15-busqueda-sugerencias-*`. Todas las de «después» se regeneraron.
 `SOLO=17,18 node capturar.js despues` genera solo algunas.
+
+## Pie de página a todo el ancho  (`pulido-footer`)
+- **Problema:** en pantallas anchas (≥1536 px) las franjas «compras seguras» y «Suscríbete» quedaban en una columna central con márgenes grises a los costados.
+- **Qué cambió:** el fondo de cada franja se extiende de borde a borde (blanco, gris muy claro y gris del pie), y el contenido conserva su ancho máximo. Sin cambios de contenido.
+- **Archivos:** `src/styles/footer.css`, `src/components/footer/Footer.jsx`.

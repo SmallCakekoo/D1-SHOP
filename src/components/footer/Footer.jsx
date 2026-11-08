@@ -4,6 +4,7 @@ import FooterMenu from './FooterMenu'
 import FooterContact from './FooterContact'
 import FooterCopyright from './FooterCopyright'
 import Icon from '../ui/Icon'
+import '../../styles/footer.css'
 import { useIsDesktop } from '../../hooks/useMediaQuery'
 
 const P = 'd1tiendas-commons-components-1-x-'
