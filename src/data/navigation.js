@@ -185,8 +185,3 @@ export const headerLinks = [
     "icon": "hpa-shoppinglist"
   }
 ]
-
-export const shippingOptions = [
-  { id: 'programado', label: 'Envío Programado', icon: 'shipping-program' },
-  { id: 'express', label: 'Envío D1 Express', icon: 'shipping-express' },
-]

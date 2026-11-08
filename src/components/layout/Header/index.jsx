@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import ShippingOptions from './ShippingOptions'
 import Logo from './Logo'
 import CategoriesMenu from './CategoriesMenu'
 import CoverageButton from './CoverageButton'
@@ -14,9 +13,6 @@ const STICKY = 'vtex-sticky-layout-0-x-container vtex-sticky-layout-0-x-containe
 function DesktopHeader() {
   return (
     <>
-      <div className={`${C} ${C}--desktop-header ${C}--header-shipping-option ${C}--header flex`}>
-        <ShippingOptions />
-      </div>
       <div
         className={`${C} ${C}--desktop-header ${C}--max-width ${C}--header-main ${C}--header flex justify-between items-center section-space-left section-space-right`}
       >
