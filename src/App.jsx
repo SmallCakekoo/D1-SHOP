@@ -13,6 +13,7 @@ import LoginPage from './pages/LoginPage'
 import CheckoutPage from './pages/CheckoutPage'
 import ReturnsPage from './pages/ReturnsPage'
 import HelpButton from './components/layout/HelpButton'
+import BottomNav from './components/layout/BottomNav'
 
 // El mapa (Leaflet) y los datos de tiendas solo se cargan al entrar a /tiendas.
 const StoresPage = lazy(() => import('./pages/StoresPage'))
@@ -43,6 +44,7 @@ export default function App() {
             </Suspense>
           </main>
           <Footer />
+          <BottomNav />
         </div>
       </CartProvider>
     </BrowserRouter>

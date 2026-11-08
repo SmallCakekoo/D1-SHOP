@@ -1,11 +1,23 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Icon from '../../ui/Icon'
 import { departments } from '../../../data/navigation'
+import { ABRIR_CATEGORIAS } from '../BottomNav'
 
 const P = 'd1tiendas-commons-components-1-x-'
 
 export default function CategoriesMenu({ compact = false }) {
   const [open, setOpen] = useState(false)
+  const botonRef = useRef(null)
+
+  // La barra inferior móvil abre este menú. Hay dos copias del encabezado al hacer scroll: responde la que se ve.
+  useEffect(() => {
+    const abrir = () => {
+      const r = botonRef.current?.getBoundingClientRect()
+      if (r && r.bottom > 0 && r.top < window.innerHeight) setOpen(true)
+    }
+    window.addEventListener(ABRIR_CATEGORIAS, abrir)
+    return () => window.removeEventListener(ABRIR_CATEGORIAS, abrir)
+  }, [])
 
   useEffect(() => {
     if (!open) return undefined
@@ -21,6 +33,7 @@ export default function CategoriesMenu({ compact = false }) {
           <div className={`${P}navigationContainer flex flex-wrap flex-nowrap-l`}>
             <div className={`${P}navigationDepartments`}>
               <button
+                ref={botonRef}
                 type="button"
                 aria-expanded={open}
                 aria-label="Categorías"
