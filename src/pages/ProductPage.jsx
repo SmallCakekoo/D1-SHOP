@@ -4,6 +4,7 @@ import Breadcrumb from '../components/product/Breadcrumb'
 import ProductGallery from '../components/product/ProductGallery'
 import ProductInfo from '../components/product/ProductInfo'
 import ProductDescription from '../components/product/ProductDescription'
+import ProductReviews from '../components/product/ProductReviews'
 import { productDetails } from '../data/productDetails'
 import { shelves } from '../data/shelves'
 import { categories } from '../data/categories'
@@ -65,6 +66,7 @@ export default function ProductPage() {
           <ProductInfo product={product} />
         </div>
         {product.descriptionHtml && <ProductDescription html={product.descriptionHtml} />}
+        <ProductReviews href={product.href} />
       </div>
     </div>
   )

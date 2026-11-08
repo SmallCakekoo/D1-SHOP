@@ -1,6 +1,7 @@
 import Price from '../ui/Price'
 import ReturnPolicySummary from '../ui/ReturnPolicySummary'
 import { estaAgotado } from '../../utils/stock'
+import Stars from './Stars'
 import '../../styles/agotado.css'
 import { useCart } from '../../context/useCart'
 
@@ -51,6 +52,7 @@ export default function ProductInfo({ product, onAdded }) {
         <h1 className={`${V}productNameContainer mv0 t-heading-4`}>
           <span className={`${V}productBrand`}>{product.name}</span>
         </h1>
+        <Stars href={product.href} link={!onAdded} />
         {product.plu && (
           <span className="vtex-product-identifier-0-x-product-identifier vtex-product-identifier-0-x-product-identifier--skuReferenceId c-muted-1">
             <span className="vtex-product-identifier-0-x-product-identifier__label">PLU</span>

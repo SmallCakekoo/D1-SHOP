@@ -6,6 +6,7 @@ import Price from '../ui/Price'
 import { asset } from '../../utils/asset'
 import { productPath } from '../../utils/links'
 import { estaAgotado } from '../../utils/stock'
+import Stars from '../product/Stars'
 import '../../styles/agotado.css'
 import { useCart } from '../../context/useCart'
 
@@ -155,6 +156,7 @@ export default function ProductCard({ product }) {
                   <span className={`${S}productBrand ${S}brandName t-body`}>{product.name}</span>
                 </h3>
               </div>
+              <Stars href={product.href} />
               <div
                 className={`${P}containerLayout ${P}containerLayout--product-summary-highlights flex w-100 items-center scroll-invisible`}
               />
