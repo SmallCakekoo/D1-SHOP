@@ -1,5 +1,6 @@
 import Slider from '../ui/Slider'
 import RecipeCard from './RecipeCard'
+import AppLink from '../ui/AppLink'
 import { recipes } from '../../data/home'
 
 const P = 'd1tiendas-commons-components-1-x-'
@@ -30,9 +31,9 @@ export default function RecipesShelf() {
           </div>
         </div>
         <section className={`${P}renderWrapper ${P}renderWrapper--section-link ${P}renderWrapper--view-all ${P}renderWrapper--sanity sanity`}>
-          <a href="https://www.d1.com.co/blog/receta" className={`${P}link`}>
+          <AppLink href="/blog/receta" className={`${P}link`}>
             <span className={`${P}label`}>Ver todas las recetas</span>
-          </a>
+          </AppLink>
         </section>
       </div>
 

@@ -1,13 +1,3 @@
-const SITE = 'https://www.d1.com.co'
-
-const slug = (text) =>
-  text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[̀-ͯ]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-|-$/g, '')
-
 export const normalize = (text) =>
   String(text)
     .toLowerCase()
@@ -38,7 +28,7 @@ const toStore = ([id, name, address, city, department, lat, lng, week, holiday])
   lat,
   lng,
   schedule: `Lunes a Sábado de ${formatRange(week)} | Domingos y Festivos de ${formatRange(holiday)}`,
-  url: `${SITE}/tiendas/${slug(name)}/${id}`,
+  url: '/tiendas',
 })
 
 // El archivo pesa ~350 KB; se descarga solo al entrar a /tiendas.

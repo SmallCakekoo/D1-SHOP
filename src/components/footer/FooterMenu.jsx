@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 import Icon from '../ui/Icon'
+import AppLink from '../ui/AppLink'
 import { footerGroups } from '../../data/footer'
 import { useIsDesktop } from '../../hooks/useMediaQuery'
 
@@ -26,9 +27,9 @@ export function FooterLinks({ links }) {
         {links.map((link) => (
           <li key={link.href} className={`${P}menuItem list ${P}menuItem--isClosed`}>
             <div className={`${P}styledLinkContainer mh6 pv2`}>
-              <a href={link.href} className={`${P}styledLink no-underline pointer t-body c-on-base`}>
+              <AppLink href={link.href} className={`${P}styledLink no-underline pointer t-body c-on-base`}>
                 <div className={`${P}styledLinkContent flex justify-between nowrap`}>{link.label}</div>
-              </a>
+              </AppLink>
             </div>
           </li>
         ))}

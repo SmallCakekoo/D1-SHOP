@@ -3,7 +3,7 @@ import { shelves } from '../data/shelves'
 import { categories } from '../data/categories'
 import { productDetails } from '../data/productDetails'
 
-const SITE = 'https://www.d1.com.co'
+const SITE = ''
 const IMG = 'https://d1tiendas.vtexassets.com/arquivos/ids'
 
 const normalize = (text) =>

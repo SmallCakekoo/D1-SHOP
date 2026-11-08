@@ -12,8 +12,8 @@ export const productDetails = {
     price: '$ 8.900',
     pum: { label: '350 gr (gr a', value: '$ 25.43' },
     breadcrumb: [
-      { label: 'Despensa', href: 'https://www.d1.com.co/despensa' },
-      { label: 'Dulcería', href: 'https://www.d1.com.co/despensa/dulceria' },
+      { label: 'Despensa', href: '/despensa' },
+      { label: 'Dulcería', href: '/despensa/dulceria' },
     ],
     images: [
       `${IMG}/200000-800-800?v=639179651200530000&height=800&aspect=true`,

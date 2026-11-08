@@ -1,8 +1,11 @@
 import { categories } from '../data/categories'
 
+// Base solo para poder interpretar rutas relativas; no es un sitio real.
+const BASE = 'http://app.local'
+
 const parse = (href) => {
   try {
-    return new URL(href, 'https://www.d1.com.co').pathname
+    return new URL(href, BASE).pathname
   } catch {
     return null
   }
@@ -31,7 +34,7 @@ export const staticPath = (href) => {
 // Búsquedas del sitio ("/queso?map=ft&_q=queso"): se resuelven aquí con el término de búsqueda.
 export const searchPath = (href) => {
   try {
-    const url = new URL(href, 'https://www.d1.com.co')
+    const url = new URL(href, BASE)
     const query = url.searchParams.get('_q')
     return query ? `${url.pathname}?map=ft&_q=${encodeURIComponent(query)}` : null
   } catch {

@@ -8,7 +8,7 @@ import { promotedProducts, searchProducts } from '../utils/search'
 
 const P = 'd1tiendas-commons-components-1-x-'
 const R = 'vtex-search-result-3-x-'
-const SITE = 'https://www.d1.com.co'
+const SITE = ''
 const ORDEN_BUSQUEDA = [A_Z, Z_A, 'Relevancia']
 const CLAVE_ORDEN = 'd1-orden-busqueda'
 
@@ -66,8 +66,8 @@ function NotFound() {
   )
 }
 
-function ShowMore({ query, shown, total }) {
-  const href = `${SITE}/${encodeURIComponent(query)}?map=ft&_q=${encodeURIComponent(query)}`
+function ShowMore({ shown, total }) {
+  const href = '#' // la copia no tiene más resultados que mostrar
   return (
     <div className={`${R}buttonShowMore--layout w-100 flex flex-column items-center`}>
       <p className="t-small c-muted-1 mv3">
@@ -128,7 +128,7 @@ export default function SearchPage({ query }) {
           products={products}
           filters={listing.filters}
           priceRange={listing.priceRange}
-          footer={complete ? null : <ShowMore query={query} shown={products.length} total={total} />}
+          footer={complete ? null : <ShowMore shown={products.length} total={total} />}
         />
       )}
     </div>

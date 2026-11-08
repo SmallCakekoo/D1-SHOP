@@ -1,6 +1,6 @@
-// Contenido del footer de d1.com.co. Las rutas relativas se resuelven contra el sitio original
+// Contenido del footer. Las rutas que no existen en esta copia apuntan a "#" (ver components/ui/AppLink.jsx)
 // mientras la app no tenga esas páginas propias.
-const SITE = 'https://www.d1.com.co'
+const SITE = ''
 const IMG = 'https://d1tiendas.vtexassets.com/assets/vtex.file-manager-graphql/images'
 
 export const footerDeals = [
@@ -44,8 +44,8 @@ export const footerGroups = [
   {
     title: 'Servicio al cliente',
     links: [
-      { label: 'Crear PQR', href: 'https://d1sas.freshdesk.com/support/tickets/new' },
-      { label: 'Consultar PQR', href: 'https://d1consultaticket.freshdesk.com/support/login' },
+      { label: 'Crear PQR', href: '#' },
+      { label: 'Consultar PQR', href: '#' },
       { label: 'Crear PQR BBVA', href: 'https://peticiones.bbva.com.co/' },
       { label: 'Devolución por PSE', href: site('/pagina/devolucion-por-pse') },
       { label: 'Preguntas frecuentes', href: site('/pagina/preguntasfrecuentes') },
@@ -61,22 +61,22 @@ export const footerGroups = [
       { label: 'Ética y cumplimiento', href: site('/pagina/etica-y-cumplimiento') },
       {
         label: 'Política riesgos de LA/FT y FPADM',
-        href: 'https://stockimages.tiendasd1.com/stockimages.tiendasd1.com/kobastockimages/DOC_LEGALES/PO%20-%20Pol%C3%ADtica%20de%20prevenci%C3%B3n%20de%20los%20riesgos%20de%20lavado%20de%20activos%2C%20financiamiento%20del%20terrorismo%20y%20financiamiento%20de%20la%20proliferaci%C3%B3n%20de%20armas%20de%20destrucci%C3%B3n%20masiva%20%282%29.pdf',
+        href: '#',
       },
       {
         label: 'Código ética',
-        href: 'https://stockimages.tiendasd1.com/stockimages.tiendasd1.com/kobastockimages/DOC_LEGALES/CODIGO%20DE%20ETICA_V5%202108.pdf',
+        href: '#',
       },
       {
         label: 'Code of ethics',
-        href: 'https://stockimages.tiendasd1.com/stockimages.tiendasd1.com/kobastockimages/DOC_LEGALES/PO%20-%20Code%20of%20Ethics%202.0.pdf',
+        href: '#',
       },
     ],
   },
   {
     title: 'Links de interés',
     links: [
-      { label: 'Facturación electrónica', href: 'https://facturacionelectronica.tiendasd1.com/' },
+      { label: 'Facturación electrónica', href: '#' },
       { label: 'Recetas', href: site('/blog/receta') },
       { label: 'Información Nutricional', href: site('/landing/informacion-nutricional') },
       { label: 'Colores D1', href: site('/pagina/coloresd1') },

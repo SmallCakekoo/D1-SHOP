@@ -1,5 +1,6 @@
 import { useId, useState } from 'react'
 import { newsletter } from '../../data/footer'
+import AppLink from '../ui/AppLink'
 
 const P = 'd1tiendas-commons-components-1-x-'
 
@@ -94,13 +95,13 @@ export default function FooterNewsletter() {
                   <label htmlFor={checkId} className="vtex-checkbox__label w-100 c-on-base pointer">
                     Autorizo de manera previa, expresa e informada a D1 S.A.S. a tratar mis datos personales para las
                     finalidades establecidas en la{' '}
-                    <a className={`${P}labelLink ${P}labelLink--first`} href={newsletter.dataAuthorizationHref}>
+                    <AppLink className={`${P}labelLink ${P}labelLink--first`} href={newsletter.dataAuthorizationHref}>
                       Autorización de Tratamiento de Datos Personales
-                    </a>{' '}
+                    </AppLink>{' '}
                     y de conformidad con la{' '}
-                    <a className={`${P}labelLink ${P}labelLink--second`} href={newsletter.dataPolicyHref}>
+                    <AppLink className={`${P}labelLink ${P}labelLink--second`} href={newsletter.dataPolicyHref}>
                       Política de Tratamiento de Datos Personales de D1 S.A.S.
-                    </a>
+                    </AppLink>
                   </label>
                 </div>
               </div>

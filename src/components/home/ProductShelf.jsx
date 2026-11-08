@@ -2,6 +2,7 @@ import Slider from '../ui/Slider'
 import ProductCard from './ProductCard'
 import { asset } from '../../utils/asset'
 import { seMuestraEn } from '../../utils/stock'
+import AppLink from '../ui/AppLink'
 
 const P = 'd1tiendas-commons-components-1-x-'
 const BREAKPOINTS = [[0, 2], [768, 3], [1024, 4]]
@@ -29,23 +30,23 @@ export default function ProductShelf({ shelf, contexto = 'home' }) {
             </div>
           </section>
           <section className={`${P}renderWrapper ${P}renderWrapper--section-link ${P}renderWrapper--view-all ${P}renderWrapper--sanity sanity`}>
-            <a href={shelf.seeMoreHref} className={`${P}link`}>
+            <AppLink href={shelf.seeMoreHref} className={`${P}link`}>
               <span className={`${P}label`}>{shelf.seeMoreLabel}</span>
-            </a>
+            </AppLink>
           </section>
         </div>
 
         <div className={`${P}containerLayout ${shelf.image ? `${P}containerLayout--shelf-with-image` : ''} ${P}containerLayout--sanity flex flex-column flex-row-ns w-100 justify-between items-center items-start-ns`}>
           {shelf.image && (
             <div className={`${P}containerImage`}>
-              <a href={shelf.imageHref} className={`${P}imageElementLink vtex-store-components-3-x-imageElementLink`}>
+              <AppLink href={shelf.imageHref} className={`${P}imageElementLink vtex-store-components-3-x-imageElementLink`}>
                 <img
                   src={asset(shelf.image)}
                   alt={shelf.imageAlt}
                   title={shelf.imageAlt}
                   className={`${P}imageElement vtex-store-components-3-x-imageElement`}
                 />
-              </a>
+              </AppLink>
             </div>
           )}
           <div className={`${P}containerLayout ${P}containerLayout--wrapperSlider ${P}containerLayout--sanity`}>

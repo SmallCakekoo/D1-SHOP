@@ -1,11 +1,12 @@
 import { asset } from '../../utils/asset'
+import AppLink from '../ui/AppLink'
 
 const R = 'd1tiendas-sanity-vtex-client-3-x-content_card_summary'
 
 export default function RecipeCard({ recipe }) {
   return (
     <div className={`${R} ${R}--container`}>
-      <a href={recipe.href} className={`${R} ${R}--link link no-underline inherit-color flex flex-column`}>
+      <AppLink href={recipe.href} className={`${R} ${R}--link link no-underline inherit-color flex flex-column`}>
         <div className={`${R} ${R}--image_container`}>
           <img src={asset(recipe.image)} alt={`Receta ${recipe.title}`} loading="lazy" className={`${R} ${R}--image`} />
         </div>
@@ -22,7 +23,7 @@ export default function RecipeCard({ recipe }) {
             </button>
           </div>
         </div>
-      </a>
+      </AppLink>
     </div>
   )
 }

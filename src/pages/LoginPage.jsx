@@ -5,7 +5,6 @@ const P = 'd1tiendas-commons-components-1-x-'
 const L = 'vtex-login-2-x-'
 const S = 'vtex-styleguide-9-x-'
 const R = 'vtex-rich-text-0-x-'
-const SITE = 'https://www.d1.com.co'
 const BANNER =
   'https://d1tiendas.vtexassets.com/assets/vtex.file-manager-graphql/images/5d183315-b5f5-407c-bf07-a8f27d9aced0___a1f95e3609c2a3c41ab894aca88049a1.jpg'
 
@@ -63,13 +62,13 @@ function Terms() {
             Al crear mi perfil, autorizo de manera previa, expresa e informada a D1 S.A.S. a tratar mis datos
             personales para las finalidades establecidas en la{' '}
             <span className={`b ${P}strong`}>
-              <a className={`${P}link`} href={`${SITE}/pagina/autorizacion-tratamiento-de-datos`}>
+              <a className={`${P}link`} href="#">
                 Autorización de Tratamiento de Datos Personales
               </a>
             </span>{' '}
             y de conformidad con la{' '}
             <span className={`b ${P}strong`}>
-              <a className={`${P}link`} href={`${SITE}/pagina/tratamiento-de-datos`}>
+              <a className={`${P}link`} href="#">
                 Política de Tratamiento de Datos Personales
               </a>
             </span>
@@ -148,7 +147,7 @@ function PasswordForm({ onForgot, onSignUp }) {
         </div>
         <div className={`${L}formLinkContainer flex justify-end ph0 pv2`}>
           <a
-            href={`${SITE}/login`}
+            href="#"
             className={`${L}forgotPasswordLink link dim c-link t-small`}
             onClick={(e) => {
               e.preventDefault()
@@ -171,7 +170,7 @@ function PasswordForm({ onForgot, onSignUp }) {
         </div>
         <div className={`${L}formLinkContainer flex justify-center ph0 mt4`}>
           <a
-            href={`${SITE}/login`}
+            href="#"
             className={`${L}dontHaveAccount link dim c-link t-small`}
             onClick={(e) => {
               e.preventDefault()

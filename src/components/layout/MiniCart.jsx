@@ -16,12 +16,12 @@ const R = 'vtex-rich-text-0-x-'
 const BTN = 'vtex-button bw1 ba fw5 v-mid relative pa0 lh-solid br2 min-h-regular t-action bg-action-primary b--action-primary c-on-action-primary hover-bg-action-primary hover-b--action-primary hover-c-on-action-primary pointer w-100'
 
 const SUGGESTED = [
-  { label: 'Despensa', href: 'https://www.d1.com.co/despensa' },
-  { label: 'Aseo y limpieza', href: 'https://www.d1.com.co/hogar/aseo-y-limpieza' },
-  { label: 'Cuidado personal y belleza', href: 'https://www.d1.com.co/cuidado-personal-y-belleza' },
-  { label: 'Mascotas', href: 'https://www.d1.com.co/mascotas' },
-  { label: 'Fruver', href: 'https://www.d1.com.co/frutas-y-verduras' },
-  { label: 'Temporada', href: 'https://www.d1.com.co/extraordinario-de-temporada' },
+  { label: 'Despensa', href: '/despensa' },
+  { label: 'Aseo y limpieza', href: '/hogar/aseo-y-limpieza' },
+  { label: 'Cuidado personal y belleza', href: '/cuidado-personal-y-belleza' },
+  { label: 'Mascotas', href: '/mascotas' },
+  { label: 'Fruver', href: '/frutas-y-verduras' },
+  { label: 'Temporada', href: '/extraordinario-de-temporada' },
 ]
 
 const money = (n) => `$ ${n.toLocaleString('es-CO')}`
