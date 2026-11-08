@@ -1,11 +1,28 @@
-/* Cambio 7: tienda más cercana. */
-.d1-near { display: flex; flex-direction: column; gap: 8px; max-width: 360px; padding: 12px 16px; font-size: 14px; }
-.d1-near__title { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 16px; }
-.d1-near select { min-height: 40px; padding: 0 8px; border: 1px solid #aaa; border-radius: 8px; background: #fff; }
-.d1-near__geo { min-height: 40px; border: 1px solid #1f4e79; border-radius: 999px; background: #fff; color: #1f4e79; font-weight: 600; cursor: pointer; }
+/* Cambio 7: tienda más cercana (pulido 7: contenedor propio, sin recortes). */
+.d1-near {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 420px;
+  margin: 16px 0;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #dfe3e8;
+  border-radius: 12px;
+  font-size: 14px;
+  overflow: visible;
+}
+.d1-near > * { min-width: 0; }
+.d1-near__title { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; }
+.d1-near__title svg { flex: 0 0 18px; }
+.d1-near select { box-sizing: border-box; width: 100%; min-height: 44px; padding: 0 10px; border: 1px solid #aaa; border-radius: 8px; background: #fff; font: inherit; }
+.d1-near__geo { box-sizing: border-box; width: 100%; min-height: 44px; padding: 0 16px; border: 1px solid #1f4e79; border-radius: 999px; background: #fff; color: #1f4e79; font: inherit; font-weight: 600; cursor: pointer; }
 .d1-near__geo:disabled { opacity: 0.5; cursor: default; }
 .d1-near__aviso { margin: 0; color: #8a5a00; }
-.d1-near__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.d1-near__list li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; background: #f3f8fc; border-radius: 8px; }
+.d1-near__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.d1-near__list li { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: #f3f8fc; border: 1px solid #d5e3f0; border-radius: 10px; overflow-wrap: anywhere; }
 .d1-near__km { color: #555; }
-.d1-near a { color: #1f4e79; }
+.d1-near a { color: #1f4e79; overflow-wrap: anywhere; }
+.d1-near__all { align-self: flex-start; }
