@@ -117,3 +117,12 @@ Ajustes antes de las capturas finales. No hay modo captura ni interruptores: la 
 - **Más productos:** el estante «Halloween Dulces D1 para mi» pasó de 4 a 48 productos, extraídos una sola vez de la categoría Dulcería de la página original (nombre, marca, precio e imagen). No hay conexión en vivo. Archivo: `src/data/shelves.js`.
 - **Enlaces:** ningún `href` apunta a d1.com.co (ni a otros dominios de D1 como tiendasd1.com, Freshdesk o sivaseguro). Lo que existe en la copia se enlaza por rutas propias; lo que no, va a `#` (`src/components/ui/AppLink.jsx`). Se dejan los `mailto:` de atención al cliente, las redes sociales, las tiendas de apps y terceros (BBVA, SIC, ABACO).
 - **Pendiente conocido:** las imágenes de producto siguen cargándose desde el CDN de D1 (`d1tiendas.vtexassets.com`).
+
+## Ajustes de UI  (`ajustes-ui`)
+| Punto | Qué cambió | Archivos |
+|---|---|---|
+| 4. Panel de búsqueda | Se abre justo debajo de la barra, con su mismo ancho (esquinas redondeadas, borde fino, sombra suave). Vacío: búsquedas recientes, populares y categorías sugeridas, como chips y sin imágenes de producto. Al escribir: resultados en vivo con retraso de 150 ms, «Productos (A–Z)», máximo 8, con miniatura, nombre con coincidencia en negrita, precio y «Agotado», más «Ver todos los resultados». Sin coincidencias: mensaje y categorías a la vista. Flechas, Enter, Escape y clic fuera; el foco se queda en la barra. En móvil ocupa todo el ancho, con chips en dos filas y botón «Cerrar». | `SearchBar.jsx`, `busqueda.css` |
+| 5. Barra inferior móvil | Barra fija con Inicio, Mis listas, Tiendas (botón destacado al centro), Categorías y Perfil; solo ≤ 768 px. Activo en rojo, área segura de iPhone (`viewport-fit=cover`), espacio al final del contenido y botones «Ayuda» y «Volver arriba» elevados. «Categorías» abre el menú del encabezado. Íconos propios 24×24 (el sprite mezcla tamaños y los recortaba). | `BottomNav.jsx`, `barra-inferior.css`, `InlineIcons.jsx`, `CategoriesMenu.jsx`, `App.jsx`, `index.html` |
+| 6. Tipo de envío | Se eliminó «Selecciona el tipo de envío» del home y los botones de la franja superior, junto con el código que solo usaban ellos (`ShippingOptions`, `ChangeShippingOption`, `shippingOptions`). «Dirección de envío» no se tocó. | `Header/index.jsx`, `Home.jsx`, `data/navigation.js` |
+
+**Capturas nuevas:** `20-inicio-barra-inferior`, `21-panel-busqueda-defecto`, `22-panel-busqueda-vivo`, `23-encabezado-sin-envios` (en 1440 y 390 px).

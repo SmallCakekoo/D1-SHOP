@@ -54,6 +54,11 @@ const PAGINAS = [
   { nombre: '17-resultados-az', ruta: '/queso?map=ft&_q=queso', soloDespues: true },
   { nombre: '18-resultados-agotado', ruta: '/dulce?map=ft&_q=dulce', soloDespues: true },
   { nombre: '19-inicio-sin-agotados', ruta: '/', soloDespues: true },
+  // Ajustes de UI: barra inferior, panel de búsqueda y encabezado sin franja de envíos.
+  { nombre: '20-inicio-barra-inferior', ruta: '/', viewport: true, soloDespues: true },
+  { nombre: '21-panel-busqueda-defecto', ruta: '/', abrirBuscador: true, viewport: true, soloDespues: true },
+  { nombre: '22-panel-busqueda-vivo', ruta: '/', escribir: 'que', viewport: true, soloDespues: true },
+  { nombre: '23-encabezado-sin-envios', ruta: '/', recorte: { x: 0, y: 0, width: 'ancho', height: 230 }, soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]
@@ -127,6 +132,11 @@ async function capturar(browser, tamano, pagina) {
   }
   await esperarImagenes(page)
 
+  if (pagina.abrirBuscador) {
+    await page.getByPlaceholder('¿Qué estás buscando?').locator('visible=true').first().click()
+    await page.waitForTimeout(300)
+  }
+
   if (pagina.escribir) {
     const campo = page.getByPlaceholder('¿Qué estás buscando?').locator('visible=true').first()
     await campo.click()
@@ -151,8 +161,9 @@ async function capturar(browser, tamano, pagina) {
 
   const archivo = path.join(SALIDA, `${pagina.nombre}-${tamano.nombre}.png`)
   // El carrito es un panel fijo: se fotografía el viewport, no la página completa.
-  const soloViewport = ((pagina.abrirCarrito || pagina.agregarYAbrirCarrito) && !pagina.irAPagar) || pagina.escribir
+  const soloViewport = ((pagina.abrirCarrito || pagina.agregarYAbrirCarrito) && !pagina.irAPagar) || pagina.escribir || pagina.viewport
   if (pagina.tiendaCercana) await page.locator('.d1-near').screenshot({ path: archivo })
+  else if (pagina.recorte) await page.screenshot({ path: archivo, clip: { ...pagina.recorte, width: tamano.width } })
   else await page.screenshot({ path: archivo, fullPage: !soloViewport })
   await context.close()
   console.log('OK', path.relative(AQUI, archivo))
