@@ -6,6 +6,9 @@ import ProductInfo from './ProductInfo'
 import { productDetails } from '../../data/productDetails'
 import { asset } from '../../utils/asset'
 import { productPath } from '../../utils/links'
+import { estaAgotado } from '../../utils/stock'
+import { useIsPhone } from '../../hooks/useMediaQuery'
+import '../../styles/vista-rapida-movil.css'
 
 const P = 'd1tiendas-commons-components-1-x-'
 const STACK = 'vtex-stack-layout-0-x-'
@@ -16,6 +19,7 @@ const pluFrom = (href) => (String(href).match(/(\d{6,9})(?:\/p)?$/) || [])[1]
 // Vista rápida: la misma información de la página de producto dentro de un modal.
 export default function QuickViewModal({ product, onClose }) {
   const closeRef = useRef(null)
+  const isPhone = useIsPhone()
 
   // Si tenemos el detalle completo (más fotos, PLU, precio por unidad) lo usamos; si no, lo que muestra la tarjeta.
   const detail = useMemo(() => {
@@ -44,6 +48,29 @@ export default function QuickViewModal({ product, onClose }) {
       previous?.focus?.()
     }
   }, [onClose])
+
+  // Teléfono: hoja que sube desde abajo (bottom sheet) con fondo oscurecido.
+  if (isPhone) {
+    return createPortal(
+      <div className="d1-bs-backdrop" onClick={(e) => e.target === e.currentTarget && onClose()}>
+        <div role="dialog" aria-modal="true" aria-label={`Vista rápida: ${detail.name}`} className="d1-bs">
+          <div className="d1-bs__top">
+            <button ref={closeRef} type="button" aria-label="Cerrar vista rápida" className="d1-bs__close" onClick={onClose}>
+              <Icon id="sti-close--line" size={22} />
+            </button>
+          </div>
+          <div className="d1-bs__body">
+            <div className="d1-bs__media">
+              {estaAgotado(detail.href) && <span className="d1-badge-agotado">Agotado</span>}
+              <ProductGallery images={detail.images} name={detail.name} phone miniaturas="siempre" />
+            </div>
+            <ProductInfo product={detail} onAdded={onClose} />
+          </div>
+        </div>
+      </div>,
+      document.body,
+    )
+  }
 
   return createPortal(
     <div
