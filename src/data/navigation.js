@@ -1,72 +1,98 @@
 // Datos de navegación extraídos del sitio legacy.
 export const departments = [
   {
+    "label": "Bono Remerca D1",
+    "href": "/remerca/p",
+    "icon": "inf-moda",
+    "hasChildren": false
+  },
+  {
+    "label": "Donaciones",
+    "href": "/donaciones",
+    "icon": "inf-nuevos",
+    "hasChildren": false
+  },
+  {
     "label": "Despensa",
+    "href": "/despensa",
     "icon": "inf-despensa",
     "hasChildren": true
   },
   {
     "label": "Lácteos y huevos",
+    "href": "/lacteos-y-huevos",
     "icon": "inf-lacteos",
     "hasChildren": true
   },
   {
     "label": "Bebidas",
+    "href": "/bebidas",
     "icon": "inf-bebidas",
     "hasChildren": true
   },
   {
     "label": "Pollo, carne y pescado",
+    "href": "/pollo-carne-y-pescado",
     "icon": "inf-pollo",
     "hasChildren": true
   },
   {
     "label": "Panadería y repostería",
+    "href": "/panaderia-y-reposteria",
     "icon": "inf-panaderia",
     "hasChildren": true
   },
   {
     "label": "Hogar",
+    "href": "/hogar",
     "icon": "inf-hogar",
     "hasChildren": true
   },
   {
     "label": "Licor, vinos y más",
+    "href": "/licor--vinos-y-mas",
     "icon": "inf-licor",
     "hasChildren": true
   },
   {
     "label": "Carnes Frías y delikatessen",
+    "href": "/carnes-frias-y-delikatessen",
     "icon": "inf-carnes",
     "hasChildren": true
   },
   {
     "label": "Frutas y verduras",
+    "href": "/frutas-y-verduras",
     "icon": "inf-alimentos",
     "hasChildren": true
   },
   {
     "label": "Infantil",
+    "href": "/infantil",
     "icon": "inf-infantil",
     "hasChildren": true
   },
   {
     "label": "Mascotas",
+    "href": "/mascotas",
     "icon": "inf-mascotas",
     "hasChildren": true
   },
   {
     "label": "Cuidado personal y belleza",
+    "href": "/cuidado-personal-y-belleza",
     "icon": "inf-cuidado-personal",
     "hasChildren": true
   },
   {
     "label": "Moda",
+    "href": "/moda",
     "icon": "inf-moda",
     "hasChildren": false
   },
   {
     "label": "Extraordinarios",
+    "href": "/extraordinario-de-temporada",
     "icon": "inf-extraordinarios",
     "hasChildren": true
   }

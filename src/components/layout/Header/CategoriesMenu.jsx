@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Icon from '../../ui/Icon'
+import AppLink from '../../ui/AppLink'
 import { departments } from '../../../data/navigation'
 import { ABRIR_CATEGORIAS } from '../BottomNav'
 
@@ -85,9 +86,9 @@ export default function CategoriesMenu({ compact = false }) {
                 >
                   {departments.map((dep) => (
                     <li key={dep.label}className={`${P}navigationMenuItem ma0 w-100 db h-100-ns`}>
-                      <button
-                        type="button"
-                        aria-haspopup="true"
+                      <AppLink
+                        href={dep.href}
+                        onClick={() => setOpen(false)}
                         className={`${P}navigationMenuItemLink bn c-on-base db w-100 pointer no-underline tl flex items-center pa4 pr2 pl6 lh-title bg-transparent`}
                       >
                         <Icon id={dep.icon} className="vtex-icon-menu--department" />
@@ -101,7 +102,7 @@ export default function CategoriesMenu({ compact = false }) {
                             />
                           </span>
                         )}
-                      </button>
+                      </AppLink>
                     </li>
                   ))}
                 </ul>

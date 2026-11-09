@@ -4,7 +4,6 @@ import CategoriesMenu from './CategoriesMenu'
 import CoverageButton from './CoverageButton'
 import SearchBar from './SearchBar'
 import HeaderControls from './HeaderControls'
-import QuickAccessMenu from '../QuickAccessMenu'
 import { useIsDesktop } from '../../../hooks/useMediaQuery'
 
 const C = 'd1tiendas-commons-components-1-x-containerLayout'
@@ -79,7 +78,6 @@ export default function Header() {
     return (
       <header className={`d1-sticky-header ${STICKY}`}>
         <DesktopHeader />
-        <QuickAccessMenu />
       </header>
     )
   }
@@ -88,12 +86,10 @@ export default function Header() {
     <>
       <header ref={ref} className="d1-header-mobile">
         <MobileHeader />
-        <QuickAccessMenu />
       </header>
       {stuck && (
         <div className={`d1-header-compact ${STICKY}`}>
           <MobileSearchRow id="search-input-compact" />
-          <QuickAccessMenu />
         </div>
       )}
     </>
