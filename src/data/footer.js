@@ -18,6 +18,7 @@ export const footerDeals = [
     image: `${IMG}/379a3420-d7c1-4bab-afec-fe6b692c3c7d___143b231bf9961ec287335b3779d14443.webp`,
     title: 'Llámanos',
     text: 'Conoce nuestras líneas de atención telefónica. Para resolver tus inquietudes.',
+    link: { label: 'Ver política completa', to: '/devoluciones' },
   },
 ]
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { footerDeals } from '../../data/footer'
 
 const P = 'd1tiendas-commons-components-1-x-'
@@ -32,6 +33,11 @@ export default function FooterDeals() {
                 </div>
               </div>
             </section>
+            {deal.link && (
+              <Link to={deal.link.to} className="d1-deal-link">
+                {deal.link.label}
+              </Link>
+            )}
           </div>
         ))}
       </div>

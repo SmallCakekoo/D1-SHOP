@@ -22,3 +22,8 @@
     height: 40px;
   }
 }
+
+/* Enlace de la columna «Llámanos» */
+.d1-deal-link { display: inline-block; margin-top: 8px; padding: 4px 2px; color: #1f4e79; font-size: 14px; font-weight: 600; text-align: center; text-decoration: underline; text-underline-offset: 3px; border-radius: 4px; }
+.d1-deal-link:hover { color: #123a5e; }
+.d1-deal-link:focus-visible { outline: 3px solid #1f4e79; outline-offset: 3px; }
