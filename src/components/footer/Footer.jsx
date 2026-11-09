@@ -20,6 +20,7 @@ export default function Footer() {
           <section className={`${P}content_footer`}>
             <FooterDeals />
             <FooterNewsletter />
+            <div className="d1-footer-gap" aria-hidden="true" />
             {isDesktop ? (
               <div
                 className={`${P}containerLayout ${P}containerLayout--footer-menu ${P}containerLayout--max-width ${P}containerLayout--section-space-left ${P}containerLayout--section-space-right ${P}containerLayout--sanity flex justify-between pa4`}
