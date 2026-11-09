@@ -5,6 +5,9 @@ import Icon from '../ui/Icon'
 import Price from '../ui/Price'
 import AppLink from '../ui/AppLink'
 import PaymentSeals from '../ui/PaymentSeals'
+import { CartOutlineIcon } from '../ui/InlineIcons'
+import { useIsPhone } from '../../hooks/useMediaQuery'
+import '../../styles/carrito-movil.css'
 import ReturnPolicySummary from '../ui/ReturnPolicySummary'
 import { asset } from '../../utils/asset'
 import { useCart } from '../../context/useCart'
@@ -30,7 +33,9 @@ function EmptyState({ onStart }) {
   return (
     <div className={`${M}minicartEmptyStateContainer h-100 flex flex-column justify-center`}>
       <div className={`${P}containerLayout ${P}containerLayout--minicart-empty-container flex flex-column items-center relative ph6`}>
-        <Icon id="hpa-cart" size={90} />
+        <span className="d1-cart-empty__icon">
+          <CartOutlineIcon width={56} height={56} />
+        </span>
         <div className={`${R}container ${R}container--minicart-empty-text flex tc items-center justify-center t-small c-on-base`}>
           <div className={`${R}wrapper ${R}wrapper--minicart-empty-text`}>
             <p className={`lh-copy ${R}paragraph ${R}paragraph--minicart-empty-text`}>
@@ -77,7 +82,7 @@ function EmptyState({ onStart }) {
 
 function CartLine({ item, onQuantity, onRemove }) {
   return (
-    <li className={`${CO}productListItem ${CO}productListItem--bag flex items-center pv4`}>
+    <li className={`${CO}productListItem ${CO}productListItem--bag d1-cart-line flex items-center pv4`}>
       <img
         src={asset(item.image)}
         alt={item.name}
@@ -113,6 +118,7 @@ function CartLine({ item, onQuantity, onRemove }) {
 
 export default function MiniCart() {
   const { items, count, total, isOpen, closeCart, setQuantity, removeItem } = useCart()
+  const isPhone = useIsPhone()
 
   useEffect(() => {
     if (!isOpen) return undefined
@@ -150,6 +156,7 @@ export default function MiniCart() {
                 <EmptyState onStart={closeCart} />
               ) : (
                 <>
+                  <div className="d1-cart-scroll">
                   <ul className={`${M}minicartProductListContainer list ma0 ph4 ph6-l overflow-y-auto`}>
                     {items.map((item) => (
                       <CartLine
@@ -160,7 +167,13 @@ export default function MiniCart() {
                       />
                     ))}
                   </ul>
-                  <div className={`${CO}minicartSummary`} style={{ padding: '16px' }}>
+                  {isPhone && (
+                    <div className="d1-cart-returns">
+                      <ReturnPolicySummary onNavigate={closeCart} />
+                    </div>
+                  )}
+                  </div>
+                  <div className={`${CO}minicartSummary d1-cart-footer`} style={{ padding: '16px' }}>
                     <div
                       className={`${CO}summaryItemContainer flex justify-between`}
                       style={{ display: 'flex', justifyContent: 'space-between', gap: 12, width: '100%' }}
@@ -178,7 +191,7 @@ export default function MiniCart() {
                       <span className="vtex-button__label flex items-center justify-center h-100 ph6">Ir a pagar</span>
                     </Link>
                     <PaymentSeals compact />
-                    <ReturnPolicySummary onNavigate={closeCart} />
+                    {!isPhone && <ReturnPolicySummary onNavigate={closeCart} />}
                   </div>
                 </>
               )}
