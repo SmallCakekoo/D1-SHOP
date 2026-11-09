@@ -128,3 +128,5 @@ Ajustes antes de las capturas finales. No hay modo captura ni interruptores: la 
 **Capturas nuevas:** `20-inicio-barra-inferior`, `21-panel-busqueda-defecto`, `22-panel-busqueda-vivo`, `23-encabezado-sin-envios` (en 1440 y 390 px).
 
 - **Detalle de producto:** la foto principal usa la versión grande (800×800) y ocupa todo el ancho de su columna; antes, los productos que venían de los estantes mostraban la miniatura de 197 px. Archivos: `src/utils/asset.js`, `src/pages/ProductPage.jsx`, `src/styles/galeria.css`.
+- **Ajustes de UI – franja de categorías fuera:** se quitó la franja de pastillas bajo el encabezado (escritorio, móvil y barra compacta). El menú «Categorías» ahora navega (antes era decorativo) y suma «Bono Remerca D1» y «Donaciones», que solo estaban en la franja. Archivos: `Header/index.jsx`, `Header/CategoriesMenu.jsx`, `data/navigation.js`, `styles/app.css`; se eliminó `QuickAccessMenu.jsx`.
+- **Ajustes de UI – aire antes del pie:** 64 px (escritorio) y 40 px (móvil) entre «Suscríbete» y el pie, con los fondos a todo el ancho. Archivos: `components/footer/Footer.jsx`, `styles/footer.css`.
