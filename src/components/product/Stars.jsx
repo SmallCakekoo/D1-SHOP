@@ -2,7 +2,7 @@ import { resenasDe } from '../../utils/resenas'
 import '../../styles/resenas.css'
 
 // Estrellas + cantidad (cambio 4). DATOS DE PRUEBA: ver data/resenas.js.
-export default function Stars({ href, link }) {
+export default function Stars({ href, link, grande = false }) {
   const { promedio, cantidad } = resenasDe(href)
   const llenas = Math.round(promedio)
   const etiqueta = `${promedio.toFixed(1).replace('.', ',')} de 5 estrellas, ${cantidad} reseñas`
@@ -17,8 +17,8 @@ export default function Stars({ href, link }) {
     </>
   )
   return link ? (
-    <a href="#resenas" className="d1-stars" aria-label={etiqueta}>{contenido}</a>
+    <a href="#resenas" className={`d1-stars ${grande ? 'd1-stars--lg' : ''}`} aria-label={etiqueta}>{contenido}</a>
   ) : (
-    <span className="d1-stars" role="img" aria-label={etiqueta}>{contenido}</span>
+    <span className={`d1-stars ${grande ? 'd1-stars--lg' : ''}`} role="img" aria-label={etiqueta}>{contenido}</span>
   )
 }

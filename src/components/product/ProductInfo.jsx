@@ -58,7 +58,7 @@ export default function ProductInfo({ product, onAdded }) {
         <h1 className={`${V}productNameContainer mv0 t-heading-4`}>
           <span className={`${V}productBrand`}>{product.name}</span>
         </h1>
-        <Stars href={product.href} link={!onAdded} />
+        <Stars href={product.href} link={!onAdded} grande />
         {product.plu && (
           <span className="vtex-product-identifier-0-x-product-identifier vtex-product-identifier-0-x-product-identifier--skuReferenceId c-muted-1">
             <span className="vtex-product-identifier-0-x-product-identifier__label">PLU</span>
