@@ -59,6 +59,11 @@ const PAGINAS = [
   { nombre: '21-panel-busqueda-defecto', ruta: '/', abrirBuscador: true, viewport: true, soloDespues: true },
   { nombre: '22-panel-busqueda-vivo', ruta: '/', escribir: 'que', viewport: true, soloDespues: true },
   { nombre: '23-encabezado-sin-envios', ruta: '/', recorte: { x: 0, y: 0, width: 'ancho', height: 230 }, soloDespues: true },
+  // Solo móvil: el nombre del archivo es exactamente el indicado (sin sufijo de tamaño).
+  { nombre: '24-producto-movil-nuevo', ruta: '/crema-de-mani-nuthos-227g-12001000/p', viewport: true, soloMovil: true, soloDespues: true },
+  { nombre: '24-producto-movil-nuevo-kit', ruta: '/kit-donacion1-d1-12009594/p', viewport: true, soloMovil: true, soloDespues: true },
+  { nombre: '25-vista-rapida-movil', ruta: '/', ojito: 'Kit #1 Donación - Aseo', viewport: true, soloMovil: true, soloDespues: true },
+  { nombre: '26-vista-rapida-agotado-movil', ruta: '/dulce?map=ft&_q=dulce', ojito: 'Bocadillo Veleño Dulce Naturaleza 470 Gr', viewport: true, soloMovil: true, soloDespues: true },
   { nombre: '09-tiendas', ruta: '/tiendas' },
   { nombre: '10-ingreso', ruta: '/login' },
 ]
@@ -132,6 +137,13 @@ async function capturar(browser, tamano, pagina) {
   }
   await esperarImagenes(page)
 
+  if (pagina.ojito) {
+    const ojo = page.locator(`section[aria-label="${pagina.ojito}"]`).getByRole('button', { name: 'Abrir vista rápida' })
+    await ojo.scrollIntoViewIfNeeded()
+    await ojo.click()
+    await page.waitForTimeout(800)
+  }
+
   if (pagina.abrirBuscador) {
     await page.getByPlaceholder('¿Qué estás buscando?').locator('visible=true').first().click()
     await page.waitForTimeout(300)
@@ -159,7 +171,7 @@ async function capturar(browser, tamano, pagina) {
     await esperarImagenes(page)
   }
 
-  const archivo = path.join(SALIDA, `${pagina.nombre}-${tamano.nombre}.png`)
+  const archivo = path.join(SALIDA, pagina.soloMovil ? `${pagina.nombre}.png` : `${pagina.nombre}-${tamano.nombre}.png`)
   // El carrito es un panel fijo: se fotografía el viewport, no la página completa.
   const soloViewport = ((pagina.abrirCarrito || pagina.agregarYAbrirCarrito) && !pagina.irAPagar) || pagina.escribir || pagina.viewport
   if (pagina.tiendaCercana) await page.locator('.d1-near').screenshot({ path: archivo })
@@ -179,6 +191,7 @@ try {
   for (const tamano of TAMANOS) {
     for (const pagina of PAGINAS) {
       if (pagina.soloDespues && momento === 'antes') continue
+      if (pagina.soloMovil && tamano.nombre !== 'movil') continue
       // SOLO=01,05 genera solo esas capturas (por prefijo de nombre).
       if (process.env.SOLO && !process.env.SOLO.split(',').some((p) => pagina.nombre.startsWith(p))) continue
       try {
