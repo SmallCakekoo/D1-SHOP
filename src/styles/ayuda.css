@@ -1,6 +1,8 @@
 /* Cambio 2: devoluciones y atención al cliente. */
 .d1-returns { margin: 16px 0; padding: 12px 14px; border: 1px solid #d5e3f0; border-radius: 10px; background: #f3f8fc; font-size: 14px; }
-.d1-returns__title { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; font-size: 15px; color: #1f4e79; }
+.d1-returns__title { display: flex; align-items: center; gap: 8px; margin: 0 0 6px; font-size: 15px; color: #1f4e79; }
+.d1-returns__icon { box-sizing: border-box; display: flex; align-items: center; justify-content: center; flex: 0 0 28px; width: 28px; height: 28px; padding: 3px; overflow: visible; color: #1f4e79; }
+.d1-returns__icon svg { flex: 0 0 22px; width: 22px; height: 22px; overflow: visible; }
 .d1-returns ul { margin: 0 0 8px; padding-left: 18px; }
 .d1-returns li { margin: 2px 0; }
 .d1-returns__link { color: #1f4e79; font-weight: 600; }

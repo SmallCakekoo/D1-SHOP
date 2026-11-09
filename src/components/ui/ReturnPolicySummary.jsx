@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Icon from './Icon'
+import { CheckCircleIcon } from './InlineIcons'
 import { resumenDevolucion } from '../../data/politicas'
 import '../../styles/ayuda.css'
 
@@ -8,7 +8,10 @@ export default function ReturnPolicySummary({ onNavigate }) {
   return (
     <section className="d1-returns" aria-label="Devoluciones">
       <h3 className="d1-returns__title">
-        <Icon id="hpa-check-circle" size={18} /> Devoluciones fáciles
+        <span className="d1-returns__icon">
+          <CheckCircleIcon />
+        </span>
+        Devoluciones fáciles
       </h3>
       <ul>
         {resumenDevolucion.map((t) => (
