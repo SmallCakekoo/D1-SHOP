@@ -4,7 +4,7 @@ import CategoriesMenu from './CategoriesMenu'
 import CoverageButton from './CoverageButton'
 import SearchBar from './SearchBar'
 import HeaderControls from './HeaderControls'
-import ProductPhoneHeader from './ProductPhoneHeader'
+import PhoneHeader from './PhoneHeader'
 import { useLocation } from 'react-router-dom'
 import { useIsDesktop, useIsPhone } from '../../../hooks/useMediaQuery'
 
@@ -77,10 +77,10 @@ export default function Header() {
   const stuck = useScrolledPast(ref)
   const isPhone = useIsPhone()
   const { pathname } = useLocation()
-  // Página de producto en teléfono: encabezado compacto propio (no aplica a /remerca/p).
+  // Teléfono (≤ 768 px): una sola fila fija. En la página de producto lleva flecha de volver (no aplica a /remerca/p).
   const esProducto = pathname !== '/remerca/p' && /^\/[^/]+\/p$/.test(pathname)
 
-  if (isPhone && esProducto) return <ProductPhoneHeader />
+  if (isPhone) return <PhoneHeader conVolver={esProducto} />
 
   if (isDesktop) {
     return (

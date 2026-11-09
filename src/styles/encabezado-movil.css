@@ -1,0 +1,33 @@
+/* Encabezado del teléfono (≤ 768 px): una fila fija de 56 px. Escritorio no cambia. */
+.d1-phone-header {
+  position: sticky; top: 0; z-index: 999;
+  background: #fff;
+  box-shadow: 0 1px 0 #e6e8eb, 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+.d1-phone-header__row { box-sizing: border-box; display: flex; align-items: center; gap: 6px; height: 56px; padding: 0 8px 0 10px; }
+.d1-phone-header__logo, .d1-phone-header__back { flex: 0 0 auto; display: flex; align-items: center; justify-content: center; border: 0; background: none; color: #1f3c5a; cursor: pointer; }
+.d1-phone-header__logo { width: 40px; height: 40px; }
+.d1-phone-header__logo svg { width: 40px; height: 40px; }
+.d1-phone-header__back { width: 40px; height: 40px; }
+.d1-phone-header__search { flex: 1 1 0; min-width: 0; }
+
+/* Barra de búsqueda tipo píldora, con botón circular rojo dentro */
+.d1-phone-header__search > div { padding: 0; }
+.d1-phone-header__search .vtex-store-components-3-x-searchBarContainer { padding-top: 0; padding-bottom: 0; max-width: none; }
+.d1-phone-header__search .vtex-input-prefix__group {
+  box-sizing: border-box; height: 40px; min-height: 40px; align-items: center; overflow: hidden;
+  border: 1px solid #d5d9de; border-radius: 999px; background: #f4f5f6;
+}
+.d1-phone-header__search input { height: 38px; padding-left: 14px; background: transparent; font-size: 14px; }
+.d1-phone-header__search .vtex-input__suffix { padding: 0 3px 0 0; background: transparent; }
+.d1-phone-header__search .vtex-store-components-3-x-searchBarIcon {
+  width: 32px; height: 32px; padding: 0; justify-content: center;
+  border-radius: 50%; background: #e4344e; color: #fff;
+}
+.d1-phone-header__search .vtex-store-components-3-x-searchBarIcon svg { width: 16px; height: 16px; color: #fff; fill: #fff; }
+
+/* Carrito (contorno) con el total debajo */
+.d1-phone-header__cart { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 1px; min-width: 48px; padding: 2px 2px 0; border: 0; background: none; color: #1f3c5a; font: inherit; cursor: pointer; }
+.d1-phone-header__cart-icon { position: relative; display: flex; color: #e4344e; }
+.d1-phone-header__badge { position: absolute; top: -6px; right: -8px; box-sizing: border-box; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #e4344e; color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; }
+.d1-phone-header__total { font-size: 11px; font-weight: 700; line-height: 1.1; }

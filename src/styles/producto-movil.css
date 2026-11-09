@@ -1,17 +1,5 @@
 /* Página de producto en teléfono (≤ 768 px). Escritorio no cambia. */
 
-/* Encabezado compacto y fijo */
-.d1-pdp-header { position: sticky; top: 0; z-index: 999; background: #fff; box-shadow: 0 1px 0 #e3e3e3; }
-.d1-pdp-header__row { display: flex; align-items: center; gap: 2px; padding: 4px 8px 0 2px; }
-.d1-pdp-header__back, .d1-pdp-header__cart { flex: 0 0 auto; display: flex; border: 0; background: none; color: #1f3c5a; cursor: pointer; font: inherit; }
-.d1-pdp-header__back { align-items: center; justify-content: center; width: 44px; height: 44px; }
-.d1-pdp-header__search { flex: 1 1 0; min-width: 0; }
-.d1-pdp-header__search > div { padding-left: 0; padding-right: 0; }
-.d1-pdp-header__cart { flex-direction: column; align-items: center; gap: 0; min-width: 52px; padding: 2px 4px; color: #1f3c5a; }
-.d1-pdp-header__cart-icon { position: relative; display: flex; color: #e30613; }
-.d1-pdp-header__badge { position: absolute; top: -6px; right: -8px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #e30613; color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; box-sizing: border-box; }
-.d1-pdp-header__total { font-size: 12px; font-weight: 700; }
-
 /* Nombre del producto en lugar de las migas de pan */
 .d1-pdp-title { margin: 0; padding: 10px 0 6px; font-size: 15px; font-weight: 700; color: #0a2b52; }
 .d1-pdp-phone > div { padding-left: 16px; padding-right: 16px; }
