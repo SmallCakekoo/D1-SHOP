@@ -2,6 +2,10 @@ import Price from '../ui/Price'
 import ReturnPolicySummary from '../ui/ReturnPolicySummary'
 import { estaAgotado } from '../../utils/stock'
 import Stars from './Stars'
+import { HeartPulseIcon } from '../ui/InlineIcons'
+import { AVISO_DONACION } from '../../data/fichas'
+import { esDonacion } from '../../utils/ficha'
+import { useIsPhone } from '../../hooks/useMediaQuery'
 import '../../styles/agotado.css'
 import { useCart } from '../../context/useCart'
 
@@ -34,7 +38,9 @@ function CartButton({ modifier, label, onClick, disabled }) {
 // onAdded: se llama después de agregar (la vista rápida lo usa para cerrarse).
 export default function ProductInfo({ product, onAdded }) {
   const { addItem, openCart } = useCart()
+  const isPhone = useIsPhone()
   const agotado = estaAgotado(product.href)
+  const donacion = esDonacion(product.href)
   const item = {
     name: product.name,
     brand: product.brand,
@@ -44,7 +50,7 @@ export default function ProductInfo({ product, onAdded }) {
   }
 
   return (
-    <div className={`${P}containerLayout ${P}containerLayout--product-info-pdp flex flex-column w-100 w-50-ns`}>
+    <div className={`${P}containerLayout ${P}containerLayout--product-info-pdp flex flex-column w-100 w-50-ns ${isPhone ? 'd1-info-card' : ''}`}>
       <div className={`${P}containerLayout ${P}containerLayout--product-info-pdp-basics flex flex-column w-100`}>
         <div className={`${V}productBrandContainer`}>
           <span className={`${V}productBrandName`}>{product.brand}</span>
@@ -59,6 +65,14 @@ export default function ProductInfo({ product, onAdded }) {
             <span className="vtex-product-identifier-0-x-product-identifier__separator">: </span>
             <span className="vtex-product-identifier-0-x-product-identifier__value">{product.plu}</span>
           </span>
+        )}
+        {isPhone && donacion && (
+          <p className="d1-aviso-donacion">
+            <HeartPulseIcon width={22} height={22} />
+            <span>
+              <strong>{AVISO_DONACION.titulo}</strong> {AVISO_DONACION.texto}
+            </span>
+          </p>
         )}
       </div>
 
@@ -81,7 +95,7 @@ export default function ProductInfo({ product, onAdded }) {
         <CartButton
           modifier="agregar-al-carrito"
           disabled={agotado}
-          label="Agregar al Carrito"
+          label={isPhone ? 'Agregar al carrito' : 'Agregar al Carrito'}
           onClick={() => {
             addItem(item)
             onAdded?.()

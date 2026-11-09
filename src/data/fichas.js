@@ -13,10 +13,17 @@ export const fichas = {
   },
 }
 
+// Aviso verde de la versión móvil para los kits de donación.
+export const AVISO_DONACION = {
+  titulo: 'Tu aporte suma:',
+  texto: 'Este producto no se entrega en tu domicilio ni se retira en tienda, va directo a los bancos de alimentos.',
+}
+
 const AVISO_KIT =
   'Este kit es una donación: su contenido no se entrega al comprador, sino a familias afectadas a través de ABACO (Asociación de Alimentos de Colombia).'
 
 const kit = (componentes) => ({
+  donacion: true,
   descripcion: 'Kit de donación con productos de primera necesidad.',
   origen: 'Nacional',
   componentes,

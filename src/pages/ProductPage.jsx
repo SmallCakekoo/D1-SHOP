@@ -6,6 +6,8 @@ import ProductInfo from '../components/product/ProductInfo'
 import ProductDescription from '../components/product/ProductDescription'
 import ProductReviews from '../components/product/ProductReviews'
 import ProductSheet from '../components/product/ProductSheet'
+import { useIsPhone } from '../hooks/useMediaQuery'
+import '../styles/producto-movil.css'
 import { kitDetails } from '../data/kitDetails'
 import { productDetails } from '../data/productDetails'
 import { shelves } from '../data/shelves'
@@ -40,6 +42,7 @@ function findProduct(path) {
 export default function ProductPage() {
   const { pathname } = useLocation()
   const product = useMemo(() => findProduct(pathname), [pathname])
+  const isPhone = useIsPhone()
 
   useEffect(() => {
     document.title = product ? `${product.name} | D1` : 'Producto no encontrado | D1'
@@ -58,18 +61,21 @@ export default function ProductPage() {
   }
 
   return (
-    <div className="vtex-render__container-id-pdp">
+    <div className={`vtex-render__container-id-pdp ${isPhone ? 'd1-pdp-phone' : ''}`}>
       <div className={`${P}containerLayout ${P}containerLayout--pdp-container ${P}containerLayout--max-width flex flex-column pa4`}>
-        <Breadcrumb trail={product.breadcrumb} current={product.name} />
+        {isPhone ? <p className="d1-pdp-title">{product.name}</p> : <Breadcrumb trail={product.breadcrumb} current={product.name} />}
         <div className={`${P}containerLayout ${P}containerLayout--pdp-container-main flex flex-column flex-row-ns justify-between items-start`}>
           <div className={`${P}containerLayout ${P}containerLayout--product-images flex w-100 w-50-ns`}>
-            <ProductGallery images={product.images} name={product.name} />
+            <ProductGallery images={product.images} name={product.name} phone={isPhone} />
           </div>
           <ProductInfo product={product} />
         </div>
-        <ProductSheet product={product} />
         {/* Las condiciones de compra de los kits de donación siguen disponibles tal como estaban. */}
-        {kitDetails[product.href] && <ProductDescription html={product.descriptionHtml} />}
+        {isPhone && kitDetails[product.href] && (
+          <ProductDescription html={product.descriptionHtml} titulo="Descripción del producto" abiertaPorDefecto />
+        )}
+        <ProductSheet product={product} />
+        {!isPhone && kitDetails[product.href] && <ProductDescription html={product.descriptionHtml} />}
         <ProductReviews href={product.href} />
       </div>
     </div>

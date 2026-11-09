@@ -77,3 +77,42 @@ export const UserIcon = (props) => (
     <path d="M4.5 20.5c.8-3.6 3.9-5.5 7.5-5.5s6.7 1.9 7.5 5.5" />
   </svg>
 )
+
+export const ArrowLeftIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M19 12H5M11 6l-6 6 6 6" />
+  </svg>
+)
+
+export const HeartOutlineIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" />
+  </svg>
+)
+
+export const HeartPulseIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" />
+    <path d="M7 12h2.5l1.5-2.5 2 4 1.5-1.5H17" />
+  </svg>
+)
+
+export const ChevronUpIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="m6 15 6-6 6 6" />
+  </svg>
+)
+
+export const ChevronDownIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="m6 9 6 6 6-6" />
+  </svg>
+)
+
+export const CartOutlineIcon = (props) => (
+  <svg {...base} {...props}>
+    <path d="M3 4h2.2l2 11h10.4l2-8H6.2" />
+    <circle cx="9" cy="19.5" r="1.3" />
+    <circle cx="17" cy="19.5" r="1.3" />
+  </svg>
+)

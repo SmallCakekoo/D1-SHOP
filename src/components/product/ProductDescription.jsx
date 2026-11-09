@@ -3,8 +3,8 @@ import Icon from '../ui/Icon'
 
 const D = 'vtex-disclosure-layout-1-x-'
 
-export default function ProductDescription({ html }) {
-  const [open, setOpen] = useState(false)
+export default function ProductDescription({ html, titulo = 'Descripción', abiertaPorDefecto = false }) {
+  const [open, setOpen] = useState(abiertaPorDefecto)
 
   return (
     <div className="d1tiendas-commons-components-1-x-containerLayout flex flex-column pa4">
@@ -18,7 +18,7 @@ export default function ProductDescription({ html }) {
         <div className="vtex-rich-text-0-x-container vtex-rich-text-0-x-container--specifications-pdp flex tl items-start justify-start t-body c-on-base">
           <div className="vtex-rich-text-0-x-wrapper vtex-rich-text-0-x-wrapper--specifications-pdp">
             <p className="lh-copy vtex-rich-text-0-x-paragraph vtex-rich-text-0-x-paragraph--specifications-pdp">
-              Descripción
+              {titulo}
             </p>
           </div>
         </div>

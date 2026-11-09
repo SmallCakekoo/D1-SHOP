@@ -1,0 +1,49 @@
+/* Página de producto en teléfono (≤ 768 px). Escritorio no cambia. */
+
+/* Encabezado compacto y fijo */
+.d1-pdp-header { position: sticky; top: 0; z-index: 999; background: #fff; box-shadow: 0 1px 0 #e3e3e3; }
+.d1-pdp-header__row { display: flex; align-items: center; gap: 2px; padding: 4px 8px 0 2px; }
+.d1-pdp-header__back, .d1-pdp-header__cart { flex: 0 0 auto; display: flex; border: 0; background: none; color: #1f3c5a; cursor: pointer; font: inherit; }
+.d1-pdp-header__back { align-items: center; justify-content: center; width: 44px; height: 44px; }
+.d1-pdp-header__search { flex: 1 1 0; min-width: 0; }
+.d1-pdp-header__search > div { padding-left: 0; padding-right: 0; }
+.d1-pdp-header__cart { flex-direction: column; align-items: center; gap: 0; min-width: 52px; padding: 2px 4px; color: #1f3c5a; }
+.d1-pdp-header__cart-icon { position: relative; display: flex; color: #e30613; }
+.d1-pdp-header__badge { position: absolute; top: -6px; right: -8px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: #e30613; color: #fff; font-size: 11px; font-weight: 700; line-height: 18px; text-align: center; box-sizing: border-box; }
+.d1-pdp-header__total { font-size: 12px; font-weight: 700; }
+
+/* Nombre del producto en lugar de las migas de pan */
+.d1-pdp-title { margin: 0; padding: 10px 0 6px; font-size: 15px; font-weight: 700; color: #0a2b52; }
+.d1-pdp-phone > div { padding-left: 16px; padding-right: 16px; }
+
+/* Imagen en tarjeta gris con botones redondos */
+.d1-gallery-card { position: relative; border-radius: 16px; background: #f6f6f6; padding: 14px 10px; }
+.d1-gallery-card .vtex-store-components-3-x-productImage { width: 100%; }
+.d1-gallery-actions { position: absolute; top: 0; right: 0; z-index: 3; display: flex; gap: 6px; padding: 6px 8px; border-radius: 0 16px 0 16px; background: #c4d9ee; }
+.d1-gallery-actions button { display: flex; align-items: center; justify-content: center; width: 38px; height: 38px; padding: 0; border: 0; border-radius: 50%; background: #fff; color: #1f3c5a; cursor: pointer; }
+.d1-gallery-actions button[aria-pressed='true'] { color: #e30613; }
+.d1-gallery-thumbs { margin: 10px 0 0; }
+.d1-gallery-thumbs .flex { gap: 8px; overflow-x: auto; }
+.d1-thumb { flex: 0 0 56px; width: 56px; margin: 0; border-radius: 8px; overflow: hidden; background: #f6f6f6; }
+.d1-thumb .vtex-store-components-3-x-carouselThumbBorder { border-radius: 8px; border-color: #e30613 !important; }
+
+/* Tarjeta de información */
+.d1-info-card { box-sizing: border-box; width: 100%; margin-top: 12px; padding: 16px; border-radius: 16px; background: #f6f6f6; gap: 4px; }
+.d1-info-card .vtex-store-components-3-x-productBrandName { font-size: 13px; color: #555; }
+.d1-info-card h1 { font-size: 22px; line-height: 1.2; font-weight: 700; margin: 2px 0 4px; }
+.d1-info-card .vtex-product-identifier-0-x-product-identifier { font-size: 13px; color: #777; }
+.d1-aviso-donacion { display: flex; align-items: flex-start; gap: 10px; margin: 12px 0 4px; padding: 12px; border-radius: 10px; background: #e6f4e8; color: #26512b; font-size: 13px; line-height: 1.35; }
+.d1-aviso-donacion svg { flex: 0 0 22px; color: #2e7d32; }
+.d1-info-card .vtex-product-price-1-x-sellingPrice { font-size: 22px; font-weight: 700; }
+.d1-info-card [class*='containerLayout--product-info-pdp-shop'] { gap: 10px; margin-top: 8px; }
+.d1-info-card .vtex-button { min-height: 48px; border-radius: 10px; font-size: 15px; }
+.d1-info-card [class*='customAddToCartButton--comprar-ahora'] .vtex-button { background: #fff !important; color: #e30613 !important; border: 2px solid #e30613 !important; }
+.d1-info-card .d1-returns { margin: 6px 0 0; background: #fff; }
+
+/* Bloques de debajo, a todo el ancho con márgenes de 16 px */
+.d1-pdp-phone .d1-sheet, .d1-pdp-phone .d1-reviews { max-width: none; padding-left: 0; padding-right: 0; }
+.d1-pdp-phone .vtex-disclosure-layout-1-x-trigger--specifications-pdp { width: 100%; justify-content: space-between; }
+
+.d1-pdp-phone [class*='containerLayout--pdp-container-main'] { row-gap: 0; }
+
+.d1-info-card [class*='customAddToCartButton--comprar-ahora'] .vtex-button__label { color: #e30613 !important; }

@@ -1,6 +1,10 @@
 import { fichas } from '../data/fichas'
+import { productPath } from './links'
 
 export const NO_INFORMADO = 'No informado'
+
+// ¿Es un kit de donación? (muestra el aviso verde "Tu aporte suma")
+export const esDonacion = (href) => Boolean(fichas[productPath(href) ?? href]?.donacion)
 
 // Cantidad que aparece en el nombre ("350 Grs", "900 Ml", "x3 uds"). Si no hay, queda sin informar.
 const CANTIDAD = /(\d+(?:[.,]\d+)?)\s*(kg|grs?|gramos|g|ml|lt|l|und|uds?|un|u)\b/i

@@ -4,7 +4,9 @@ import CategoriesMenu from './CategoriesMenu'
 import CoverageButton from './CoverageButton'
 import SearchBar from './SearchBar'
 import HeaderControls from './HeaderControls'
-import { useIsDesktop } from '../../../hooks/useMediaQuery'
+import ProductPhoneHeader from './ProductPhoneHeader'
+import { useLocation } from 'react-router-dom'
+import { useIsDesktop, useIsPhone } from '../../../hooks/useMediaQuery'
 
 const C = 'd1tiendas-commons-components-1-x-containerLayout'
 const STICKY = 'vtex-sticky-layout-0-x-container vtex-sticky-layout-0-x-container--sticky-header'
@@ -73,6 +75,12 @@ export default function Header() {
   const isDesktop = useIsDesktop()
   const ref = useRef(null)
   const stuck = useScrolledPast(ref)
+  const isPhone = useIsPhone()
+  const { pathname } = useLocation()
+  // Página de producto en teléfono: encabezado compacto propio (no aplica a /remerca/p).
+  const esProducto = pathname !== '/remerca/p' && /^\/[^/]+\/p$/.test(pathname)
+
+  if (isPhone && esProducto) return <ProductPhoneHeader />
 
   if (isDesktop) {
     return (
